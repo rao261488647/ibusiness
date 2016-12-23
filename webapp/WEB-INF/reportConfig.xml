@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reportConfig>
+  <config>
+    <name>logConfig</name>
+    <value>/WEB-INF/runqianReportLog.properties</value>
+  </config>
+  <config>
+    <name>license</name>
+    <value>/WEB-INF/quieeWindowServer_免费.lic</value>
+  </config>
+  <config>
+    <name>reportFileHome</name>
+    <value>/WEB-INF/reports</value>
+  </config>
+  <config>
+    <name>JNDIPrefix</name>
+    <value>java:comp/env</value>
+  </config>
+  <config>
+    <name>dataSource</name>
+    <value>JMDB,mySQL,GBK,0</value>
+  </config>
+  <config>
+    <name>jspCharset</name>
+    <value>UTF-8</value>
+  </config>
+  <config>
+    <name>alwaysReloadDefine</name>
+    <value>yes</value>
+  </config>
+  <config>
+    <name>cachedParamsTimeout</name>
+    <value>120</value>
+  </config>
+  <config>
+    <name>cachedReportDir</name>
+    <value>report_cache</value>
+  </config>
+  <config>
+    <name>cachedIdPrefix</name>
+    <value>A</value>
+  </config>
+  <config>
+    <name>cachedReportTimeout</name>
+    <value>120</value>
+  </config>
+  <config>
+    <name>maxCellNum</name>
+    <value />
+  </config>
+  <config>
+    <name>maxConcurrentForReport</name>
+    <value>9999</value>
+  </config>
+  <config>
+    <name>maxWaitForReport</name>
+    <value>9999</value>
+  </config>
+  <config>
+    <name>maxWaitTimeForReport</name>
+    <value>9999</value>
+  </config>
+  <config>
+    <name>appUrlPrefix</name>
+    <value />
+  </config>
+  <config>
+    <name>errorPage</name>
+    <value>/jsp/report/reportError.jsp</value>
+  </config>
+</reportConfig>
+

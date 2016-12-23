@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <!-- 加载spring配置文件applicationContext.xml -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/spring/applicationContext.xml</param-value>
+    </context-param>
+
+    <!-- 为了在项目中使用Spring Security控制权限,DelegatingFilterProxy配置过滤器可以控制对这个项目的每个请求管理过滤器 -->
+    <filter>
+        <filter-name>compositeFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>compositeFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 监听器 启动Web容器时，自动装配ApplicationContext的配置信息 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- 报错页面 -->
+    <error-page>
+        <error-code>401</error-code>
+        <location>/common/401.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/common/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/common/500.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/common/500.jsp</location>
+    </error-page>
+    
+    <!-- 初始化设置 -->
+    <servlet>
+		<servlet-name>InitServlet</servlet-name>
+		<servlet-class>com.ibusiness.common.sevlet.InitServlet</servlet-class>
+		<!-- 设置启动时加裁 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+    	<servlet-name>InitServlet</servlet-name>
+    	<url-pattern>/common/checkcode</url-pattern>
+  	</servlet-mapping>
+  	
+  	<!-- 验证码 -->
+  	<servlet>
+    	<servlet-name>captchaAjax</servlet-name>
+    	<servlet-class>com.ibusiness.common.sevlet.CaptchaAjax</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>captchaAjax</servlet-name>
+    	<url-pattern>/common/captchaAjax</url-pattern>
+  	</servlet-mapping>
+  	
+  	<!-- 后台入口 -->
+  	<servlet>
+    	<servlet-name>manage</servlet-name>
+    	<servlet-class>com.ibusiness.common.sevlet.ManageServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>manage</servlet-name>
+    	<url-pattern>/manage</url-pattern>
+  	</servlet-mapping>
+  	
+  	<!-- 引入快逸报表 -->
+	<servlet>
+		<servlet-name>reportServlet</servlet-name>
+		<servlet-class>com.runqian.report4.view.ReportServlet</servlet-class>
+		<init-param>
+			<param-name>configFile</param-name>
+			<param-value>/WEB-INF/reportConfig.xml</param-value>
+		</init-param>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>reportServlet</servlet-name>
+		<url-pattern>/reportServlet</url-pattern>
+	</servlet-mapping>
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/runqianReport4.tld</taglib-uri>
+			<taglib-location>/WEB-INF/runqianReport4.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+	
+</web-app>

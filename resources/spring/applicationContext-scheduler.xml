@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+					    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- spring3.0定时器配置 -->
+	<task:annotation-driven/>
+
+    <!-- quartz定时器开关 -->
+    <bean id="quartzPlcData" class="com.ibusiness.common.controller.QuartzController">
+    </bean>
+    <!-- 统计表每月1号0点0分0秒结转 -->
+    <task:scheduled-tasks>
+        <task:scheduled ref="quartzPlcData" method="parserReportData" cron="0 * * * * ?" />  
+    </task:scheduled-tasks>
+
+</beans>

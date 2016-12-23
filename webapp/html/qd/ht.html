@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>Read</title>
+
+	<link href="css/css.css" type="text/css" rel="stylesheet">
+		<style type="text/css">
+<!--
+body {
+	width: 95%;
+	margin: 0px;
+	padding: 0px;
+}
+
+}
+-->
+</style>
+		<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v6.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+		<script type="text/javascript">
+<!--
+
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_scanStyles(obj, prop) { //v8.0
+  var inlineStyle = null; var ccProp = prop; var dash = ccProp.indexOf("-");
+  while (dash != -1){ccProp = ccProp.substring(0, dash) + ccProp.substring(dash+1,dash+2).toUpperCase() + ccProp.substring(dash+2); dash = ccProp.indexOf("-");}
+  inlineStyle = eval("obj.style." + ccProp);
+  if(inlineStyle) return inlineStyle;
+  var ss = document.styleSheets;
+  for (var x = 0; x < ss.length; x++) { var rules = ss[x].cssRules;
+	for (var y = 0; y < rules.length; y++) { var z = rules[y].style;
+	  if(z[prop] && (rules[y].selectorText == '*[ID"' + obj.id + '"]')) {
+        return z[prop];
+  }  }  }  return "";
+}
+
+function MM_getProp(obj, prop) { //v8.0
+  if (!obj) return ("");
+  if (prop == "L") return obj.offsetLeft;
+  else if (prop == "T") return obj.offsetTop;
+  else if (prop == "W") return obj.offsetWidth;
+  else if (prop == "H") return obj.offsetHeight;
+  else {
+    if (typeof(window.getComputedStyle) == "undefined") {
+	    if (typeof(obj.currentStyle) == "undefined"){
+		    if (prop == "P") return MM_scanStyles(obj,"position");
+        else if (prop == "Z") return MM_scanStyles(obj,"z-index");
+        else if (prop == "V") return MM_scanStyles(obj,"visibility");
+	    } else {
+	      if (prop == "P") return obj.currentStyle.position;
+        else if (prop == "Z") return obj.currentStyle.zIndex;
+        else if (prop == "V") return obj.currentStyle.visibility;
+	    }
+    } else {
+	    if (prop == "P") return window.getComputedStyle(obj,null).getPropertyValue("position");
+      else if (prop == "Z") return window.getComputedStyle(obj,null).getPropertyValue("z-index");
+      else if (prop == "V") return window.getComputedStyle(obj,null).getPropertyValue("visibility");
+    }
+  }
+}
+
+function MM_dragLayer(objName,x,hL,hT,hW,hH,toFront,dropBack,cU,cD,cL,cR,targL,targT,tol,dropJS,et,dragJS) { //v8.0
+  //Copyright 2005 Macromedia, Inc. All rights reserved.
+  var i,j,aLayer,retVal,curDrag=null,curLeft,curTop,IE=document.all,NS4=document.layers;
+  var NS6=(!IE&&document.getElementById), NS=(NS4||NS6); if (!IE && !NS) return false;
+  retVal = true; if(IE && event) event.returnValue = true;
+  if (MM_dragLayer.arguments.length > 1) {
+    curDrag = MM_findObj(objName); if (!curDrag) return false;
+    if (!document.allLayers) { document.allLayers = new Array();
+      with (document) if (NS4) { for (i=0; i<layers.length; i++) allLayers[i]=layers[i];
+        for (i=0; i<allLayers.length; i++) if (allLayers[i].document && allLayers[i].document.layers)
+          with (allLayers[i].document) for (j=0; j<layers.length; j++) allLayers[allLayers.length]=layers[j];
+      } else {
+        if (NS6) { var spns = getElementsByTagName("span"); var all = getElementsByTagName("div"); 
+          for (i=0;i<spns.length;i++) if (MM_getProp(spns[i],'P')) allLayers[allLayers.length]=spns[i];}
+        for (i=0;i<all.length;i++) {
+	  if (NS4){if (all[i].style&&all[i].style.position) allLayers[allLayers.length]=all[i];}
+          else if (MM_getProp(all[i],'P')) allLayers[allLayers.length]=all[i]; 
+        }
+    } }
+    curDrag.MM_dragOk=true; curDrag.MM_targL=targL; curDrag.MM_targT=targT;
+    curDrag.MM_tol=Math.pow(tol,2); curDrag.MM_hLeft=hL; curDrag.MM_hTop=hT;
+    curDrag.MM_hWidth=hW; curDrag.MM_hHeight=hH; curDrag.MM_toFront=toFront;
+    curDrag.MM_dropBack=dropBack; curDrag.MM_dropJS=dropJS;
+    curDrag.MM_everyTime=et; curDrag.MM_dragJS=dragJS;
+  
+    curDrag.MM_oldZ = (NS4)?curDrag.zIndex:MM_getProp(curDrag,'Z');
+    curLeft= (NS4)?curDrag.left:MM_getProp(curDrag,'L');
+    if (String(curLeft)=="NaN") curLeft=0; curDrag.MM_startL = curLeft;
+    curTop = (NS4)?curDrag.top:MM_getProp(curDrag,'T');
+    if (String(curTop)=="NaN") curTop=0; curDrag.MM_startT = curTop;
+    curDrag.MM_bL=(cL<0)?null:curLeft-cL; curDrag.MM_bT=(cU<0)?null:curTop-cU;
+    curDrag.MM_bR=(cR<0)?null:curLeft+cR; curDrag.MM_bB=(cD<0)?null:curTop+cD;
+    curDrag.MM_LEFTRIGHT=0; curDrag.MM_UPDOWN=0; curDrag.MM_SNAPPED=false; //use in your JS!
+    document.onmousedown = MM_dragLayer; document.onmouseup = MM_dragLayer;
+    if (NS) document.captureEvents(Event.MOUSEDOWN|Event.MOUSEUP);
+  } else {
+    var theEvent = ((NS)?objName.type:event.type);
+    if (theEvent == 'mousedown') {
+      var mouseX = (NS)?objName.pageX : event.clientX + document.body.scrollLeft;
+      var mouseY = (NS)?objName.pageY : event.clientY + document.body.scrollTop;
+      var maxDragZ=null; document.MM_maxZ = 0;
+      for (i=0; i<document.allLayers.length; i++) { aLayer = document.allLayers[i];
+        var aLayerZ = (NS4)?aLayer.zIndex:MM_getProp(aLayer,'Z');
+        if (aLayerZ > document.MM_maxZ) document.MM_maxZ = aLayerZ;
+        var isVisible = ((NS4)?aLayer.visibility:MM_getProp(aLayer,'V')).indexOf('hid') == -1;
+        if (aLayer.MM_dragOk != null && isVisible) with (aLayer) {
+          var parentL=0; var parentT=0;
+          if (NS6) { parentLayer = aLayer.parentNode;
+            while (parentLayer != null && parentLayer != document && MM_getProp(parentLayer,'P')) {
+              parentL += parseInt(MM_getProp(parentLayer,'L')); parentT += parseInt(MM_getProp(parentLayer,'T'));
+              parentLayer = parentLayer.parentNode;
+              if (parentLayer==document) parentLayer = null;
+          } } else if (IE) { parentLayer = aLayer.parentElement;       
+            while (parentLayer != null && MM_getProp(parentLayer,'P')) {
+              parentL += MM_getProp(parentLayer,'L'); parentT += MM_getProp(parentLayer,'T');
+              parentLayer = parentLayer.parentElement; } }
+          var tmpX=mouseX-((NS4)?pageX:(MM_getProp(aLayer,'L'))+parentL+MM_hLeft);
+          var tmpY=mouseY-((NS4)?pageY:(MM_getProp(aLayer,'T'))+parentT+MM_hTop);
+          if (String(tmpX)=="NaN") tmpX=0; if (String(tmpY)=="NaN") tmpY=0;
+          var tmpW = MM_hWidth;  if (tmpW <= 0) tmpW += (NS4)?clip.width:MM_getProp(aLayer,'W');
+          var tmpH = MM_hHeight; if (tmpH <= 0) tmpH += (NS4)?clip.height:MM_getProp(aLayer,'H');
+          if ((0 <= tmpX && tmpX < tmpW && 0 <= tmpY && tmpY < tmpH) && (maxDragZ == null
+              || maxDragZ <= aLayerZ)) { curDrag = aLayer; maxDragZ = aLayerZ; } } }
+      if (curDrag) {
+        document.onmousemove = MM_dragLayer; if (NS4) document.captureEvents(Event.MOUSEMOVE);
+        curLeft = (NS4)?curDrag.left:MM_getProp(curDrag,'L');
+        curTop = (NS4)?curDrag.top:MM_getProp(curDrag,'T');
+        if (String(curLeft)=="NaN") curLeft=0; if (String(curTop)=="NaN") curTop=0;
+        MM_oldX = mouseX - curLeft; MM_oldY = mouseY - curTop;
+        document.MM_curDrag = curDrag;  curDrag.MM_SNAPPED=false;
+        if(curDrag.MM_toFront) {
+          var newZ = parseInt(document.MM_maxZ)+1;
+          eval('curDrag.'+((NS4)?'':'style.')+'zIndex=newZ');
+          if (!curDrag.MM_dropBack) document.MM_maxZ++; }
+        retVal = false; if(!NS4&&!NS6) event.returnValue = false;
+    } } else if (theEvent == 'mousemove') {
+      if (document.MM_curDrag) with (document.MM_curDrag) {
+        var mouseX = (NS)?objName.pageX : event.clientX + document.body.scrollLeft;
+        var mouseY = (NS)?objName.pageY : event.clientY + document.body.scrollTop;
+        var newLeft = mouseX-MM_oldX; var newTop  = mouseY-MM_oldY;
+        if (MM_bL!=null) newLeft = Math.max(newLeft,MM_bL);
+        if (MM_bR!=null) newLeft = Math.min(newLeft,MM_bR);
+        if (MM_bT!=null) newTop  = Math.max(newTop ,MM_bT);
+        if (MM_bB!=null) newTop  = Math.min(newTop ,MM_bB);
+        MM_LEFTRIGHT = newLeft-MM_startL; MM_UPDOWN = newTop-MM_startT;
+        if (NS4) {left = newLeft; top = newTop;}
+        else if (NS6){style.left = newLeft + "px"; style.top = newTop + "px";}
+        else {style.pixelLeft = newLeft; style.pixelTop = newTop;}
+        if (MM_dragJS) eval(MM_dragJS);
+        retVal = false; if(!NS) event.returnValue = false;
+    } } else if (theEvent == 'mouseup') {
+      document.onmousemove = null;
+      if (NS) document.releaseEvents(Event.MOUSEMOVE);
+      if (NS) document.captureEvents(Event.MOUSEDOWN); //for mac NS
+      if (document.MM_curDrag) with (document.MM_curDrag) {
+        if (typeof MM_targL =='number' && typeof MM_targT == 'number' &&
+            (Math.pow(MM_targL-((NS4)?left:MM_getProp(document.MM_curDrag,'L')),2)+
+             Math.pow(MM_targT-((NS4)?top:MM_getProp(document.MM_curDrag,'T')),2))<=MM_tol) {
+          if (NS4) {left = MM_targL; top = MM_targT;}
+          else if (NS6) {style.left = MM_targL + "px"; style.top = MM_targT + "px";}
+          else {style.pixelLeft = MM_targL; style.pixelTop = MM_targT;}
+          MM_SNAPPED = true; MM_LEFTRIGHT = MM_startL-MM_targL; MM_UPDOWN = MM_startT-MM_targT; }
+        if (MM_everyTime || MM_SNAPPED) eval(MM_dropJS);
+        if(MM_dropBack) {if (NS4) zIndex = MM_oldZ; else style.zIndex = MM_oldZ;}
+        retVal = false; if(!NS) event.returnValue = false; }
+      document.MM_curDrag = null;
+    }
+    if (NS) document.routeEvent(objName);
+  } return retVal;
+}
+//-->
+</script>
+</head>
+
+<body
+	onload="MM_preloadImages(&#39;hotel/images/xs0.jpg&#39;,&#39;images/topo0.gif&#39;)"
+	marginwidth="0" marginheight="0">
+
+	<div>
+		<table width="870" height="96%" border="0" cellpadding="0"
+			cellspacing="0">
+			<tbody>
+				<tr>
+					<td><div style="width: 870px; background-position: center">
+							<table width="870" height="289" border="0" cellpadding="0"
+								cellspacing="0">
+								<tbody>
+									<tr>
+										<td style="background-position: center;">
+											<div id="Layer1"
+												style="background-color: #efefef; width: 150px; height: 150px; PADDING: 10px; BORDER: #929292 1px solid; position: absolute; z-index: 4; left: 185px; top: 14px"
+												ondblclick="MM_dragLayer(&#39;Layer1&#39;,&#39;&#39;,0,0,0,0,true,false,-1,-1,-1,-1,95,28,10,&#39;&#39;,true,&#39;&#39;)"
+												onmouseover="MM_showHideLayers(&#39;Layer61&#39;,&#39;&#39;,&#39;show&#39;)"
+												onmouseout="MM_showHideLayers(&#39;Layer61&#39;,&#39;&#39;,&#39;hide&#39;)">
+												<a href="projects.html" onmouseout="MM_swapImgRestore()"
+													onmouseover="MM_swapImage(&#39;Image61&#39;,&#39;&#39;,&#39;hotel/images/ab0.jpg&#39;,1)"
+													target="_parent"><img border="0" height="150"
+													name="Image61" src="hotel/images/ab.jpg" width="150"
+													id="Image61"
+													onmouseover="MM_showHideLayers(&#39;Layer61&#39;,&#39;&#39;,&#39;show&#39;)"
+													onmouseout="MM_showHideLayers(&#39;Layer61&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+											</div>
+											<div id="Layer2"
+												style="background-color: #efefef; width: 150px; height: 150px; PADDING: 10px; BORDER: #929292 1px solid; position: absolute; z-index: 2; left: 0px; top: 36px"
+												ondblclick="MM_dragLayer(&#39;Layer2&#39;,&#39;&#39;,0,0,0,0,true,false,-1,-1,-1,-1,95,28,10,&#39;&#39;,true,&#39;&#39;)"
+												onmouseover="MM_showHideLayers(&#39;Layer62&#39;,&#39;&#39;,&#39;show&#39;)"
+												onmouseout="MM_showHideLayers(&#39;Layer62&#39;,&#39;&#39;,&#39;hide&#39;)">
+												<a href="projects.html" onmouseout="MM_swapImgRestore()"
+													onmouseover="MM_swapImage(&#39;Image82&#39;,&#39;&#39;,&#39;hotel/images/dl0.jpg&#39;,1)"
+													target="_parent"><img border="0" height="150"
+													name="Image82" src="hotel/images/dl.jpg" width="150"
+													id="Image82"
+													onmouseover="MM_showHideLayers(&#39;Layer62&#39;,&#39;&#39;,&#39;show&#39;)"
+													onmouseout="MM_showHideLayers(&#39;Layer62&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+											</div>
+											<div id="Layer3"
+												style="background-color: #efefef; width: 150px; height: 150px; PADDING: 10px; BORDER: #929292 1px solid; position: absolute; z-index: 3; left: 70px; top: 105px"
+												ondblclick="MM_dragLayer(&#39;Layer3&#39;,&#39;&#39;,0,0,0,0,true,false,-1,-1,-1,-1,95,28,10,&#39;&#39;,true,&#39;&#39;)"
+												onmouseover="MM_showHideLayers(&#39;Layer63&#39;,&#39;&#39;,&#39;show&#39;)"
+												onmouseout="MM_showHideLayers(&#39;Layer63&#39;,&#39;&#39;,&#39;hide&#39;)">
+												<a href="projects.html" onmouseout="MM_swapImgRestore()"
+													onmouseover="MM_swapImage(&#39;Image63&#39;,&#39;&#39;,&#39;hotel/images/sw0.jpg&#39;,1)"
+													target="_parent"><img border="0" height="150"
+													name="Image63" src="hotel/images/sw.jpg" width="150"
+													id="Image63"
+													onmouseover="MM_showHideLayers(&#39;Layer63&#39;,&#39;&#39;,&#39;show&#39;)"
+													onmouseout="MM_showHideLayers(&#39;Layer63&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+											</div>
+											<div id="Layer4"
+												style="background-color: #efefef; width: 150px; height: 150px; PADDING: 10px; BORDER: #929292 1px solid; position: absolute; z-index: 5; left: 255px; top: 145px"
+												ondblclick="MM_dragLayer(&#39;Layer4&#39;,&#39;&#39;,0,0,0,0,true,false,-1,-1,-1,-1,95,28,10,&#39;&#39;,true,&#39;&#39;)"
+												onmouseover="MM_showHideLayers(&#39;Layer64&#39;,&#39;&#39;,&#39;show&#39;)"
+												onmouseout="MM_showHideLayers(&#39;Layer64&#39;,&#39;&#39;,&#39;hide&#39;)">
+												<a href="projects.html" onmouseout="MM_swapImgRestore()"
+													onmouseover="MM_swapImage(&#39;Image64&#39;,&#39;&#39;,&#39;hotel/images/fw0.jpg&#39;,1)"
+													target="_parent"><img border="0" height="150"
+													name="Image64" src="hotel/images/fw.jpg" width="150"
+													id="Image64"
+													onmouseover="MM_showHideLayers(&#39;Layer64&#39;,&#39;&#39;,&#39;show&#39;)"
+													onmouseout="MM_showHideLayers(&#39;Layer64&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+											</div>
+											<div id="Layer5"
+												style="background-color: #efefef; width: 150px; height: 150px; PADDING: 10px; BORDER: #929292 1px solid; position: absolute; z-index: 8; left: 425px; top: 25px"
+												ondblclick="MM_dragLayer(&#39;Layer5&#39;,&#39;&#39;,0,0,0,0,true,false,-1,-1,-1,-1,95,28,10,&#39;&#39;,true,&#39;&#39;)"
+												onmouseover="MM_showHideLayers(&#39;Layer65&#39;,&#39;&#39;,&#39;show&#39;)"
+												onmouseout="MM_showHideLayers(&#39;Layer65&#39;,&#39;&#39;,&#39;hide&#39;)">
+												<a href="projects.html" onmouseout="MM_swapImgRestore()"
+													onmouseover="MM_swapImage(&#39;Image65&#39;,&#39;&#39;,&#39;hotel/images/hg0.jpg&#39;,1)"
+													target="_parent"><img border="0" height="150"
+													name="Image65" src="hotel/images/hg.jpg" width="150"
+													id="Image65"
+													onmouseover="MM_showHideLayers(&#39;Layer65&#39;,&#39;&#39;,&#39;show&#39;)"
+													onmouseout="MM_showHideLayers(&#39;Layer65&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+											</div>
+											<div id="Layer6"
+												style="background-color: #efefef; width: 150px; height: 150px; PADDING: 10px; BORDER: #929292 1px solid; position: absolute; z-index: 1; left: 530px; top: 90px"
+												ondblclick="MM_dragLayer(&#39;Layer6&#39;,&#39;&#39;,0,0,0,0,true,false,-1,-1,-1,-1,95,28,10,&#39;&#39;,true,&#39;&#39;)"
+												onmouseover="MM_showHideLayers(&#39;Layer66&#39;,&#39;&#39;,&#39;show&#39;)"
+												onmouseout="MM_showHideLayers(&#39;Layer66&#39;,&#39;&#39;,&#39;hide&#39;)">
+												<a href="projects.html" onmouseout="MM_swapImgRestore()"
+													onmouseover="MM_swapImage(&#39;Image66&#39;,&#39;&#39;,&#39;hotel/images/nf0.jpg&#39;,1)"
+													target="_parent"><img border="0" height="150"
+													name="Image66" src="hotel/images/nf.jpg" width="150"
+													id="Image66"
+													onmouseover="MM_showHideLayers(&#39;Layer66&#39;,&#39;&#39;,&#39;show&#39;)"
+													onmouseout="MM_showHideLayers(&#39;Layer66&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+											</div>
+											<div id="Layer7"
+												style="background-color: #efefef; width: 150px; height: 150px; PADDING: 10px; BORDER: #929292 1px solid; position: absolute; z-index: 8; left: 335px; top: 65px"
+												ondblclick="MM_dragLayer(&#39;Layer5&#39;,&#39;&#39;,0,0,0,0,true,false,-1,-1,-1,-1,95,28,10,&#39;&#39;,true,&#39;&#39;)"
+												onmouseover="MM_showHideLayers(&#39;Layer67&#39;,&#39;&#39;,&#39;show&#39;)"
+												onmouseout="MM_showHideLayers(&#39;Layer67&#39;,&#39;&#39;,&#39;hide&#39;)">
+												<a href="projects.html" onmouseout="MM_swapImgRestore()"
+													onmouseover="MM_swapImage(&#39;Image67&#39;,&#39;&#39;,&#39;hotel/images/xs0.jpg&#39;,1)"
+													target="_parent"><img border="0" height="150"
+													name="Image67" src="hotel/images/xs.jpg" width="150"
+													id="Image67"
+													onmouseover="MM_showHideLayers(&#39;Layer67&#39;,&#39;&#39;,&#39;show&#39;)"
+													onmouseout="MM_showHideLayers(&#39;Layer67&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+											</div>
+										</td>
+										<!--  -->
+										<td align="right" valign="top" class="h00"
+											style="PADDING-right: 10px">
+											<table width="870" border="0" cellpadding="0" cellspacing="0">
+												<tbody>
+													<tr>
+														<td height="60" colspan="3" align="left" valign="top"
+															class="h0"><div>
+																<table width="870" border="0" align="left"
+																	cellpadding="0" cellspacing="0" class="ap2">
+																	<tbody>
+																		<tr>
+																			<td width="520" align="right" valign="top"
+																				style="padding-right: 40px;"></td>
+																			<td width="2" align="right" valign="top"><div
+																					id="Layer41" align="right"
+																					style="position: absolute; z-index: 2; width: 290px; height: 60px; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: visible;">
+																					<table width="270" border="0" cellspacing="0"
+																						cellpadding="0" bgcolor="" align="right">
+																						<tbody>
+																							<tr>
+																								<td height="60" align="right" valign="middle"
+																									style="padding-right: 52px;"><a href="projects.html"
+																									target="_parent" class="right"><span>会所</span></a>
+																									<a href="projects.html" target="_parent" class="right"><span>软饰</span></a>
+																									<a href="projects.html" target="_parent" class="right"><span>其他</span></a>
+																									<a href="projects.html" target="_parent" class="right"><span>手稿</span></a></td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</div></td>
+																			<td height="60" align="right" valign="middle"
+																				style="padding-right: 12px;"><a
+																				href="hotel.html" target="_parent"
+																				onmouseover="MM_showHideLayers(&#39;Layer41&#39;,&#39;&#39;,&#39;show&#39;)"
+																				onmouseout="MM_showHideLayers(&#39;Layer41&#39;,&#39;&#39;,&#39;show&#39;)"><span
+																					class="h0">酒店</span> <img src="images/jian.jpg"
+																					width="13" height="12" border="0"></a></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div></td>
+													</tr>
+													<!-- 
+													<tr>
+														<td width="570" height="30" align="right" valign="top"
+															style="padding-right: 20px;"></td>
+														<td width="10" height="30" align="left" valign="top"><div
+																id="Layer61" align="right"
+																style="position: absolute; width: 290px; height: 30px; z-index: 2; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: hidden;">
+																<a href="hotel/ab.html" target="_parent"><span
+																	class="h1">博鳌太阳城酒店</span></a> <img src="images/topo0.gif">
+															</div></td>
+														<td width="290" align="left" valign="top"
+															style="padding-right: 11px;"><div align="right">
+																<a href="hotel/ab.html"
+																	onmouseout="MM_swapImgRestore()"
+																	onmouseover="MM_swapImage(&#39;Image11&#39;,&#39;&#39;,&#39;images/topo0.gif&#39;,1)"
+																	target="_parent"><img border="0" name="Image11"
+																	src="images/topo.gif" alt="" id="Image11"
+																	onmouseover="MM_showHideLayers(&#39;Layer61&#39;,&#39;&#39;,&#39;show&#39;)"
+																	onmouseout="MM_showHideLayers(&#39;Layer61&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+															</div></td>
+													</tr>
+													<tr>
+														<td width="570" height="30" align="right" valign="top"
+															style="padding-right: 20px;"></td>
+														<td width="10" height="30" align="left" valign="top"><div
+																id="Layer62" align="right"
+																style="position: absolute; width: 290px; height: 30px; z-index: 2; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: hidden;">
+																<a href="#" target="_parent"><span
+																	class="h1">大连国际公寓酒店</span></a> <img src="images/topo0.gif">
+															</div></td>
+														<td width="290" align="left" valign="top"
+															style="padding-right: 11px;"><div align="right">
+																<a href="#"
+																	onmouseout="MM_swapImgRestore()"
+																	onmouseover="MM_swapImage(&#39;Image12&#39;,&#39;&#39;,&#39;images/topo0.gif&#39;,1)"
+																	target="_parent"><img border="0" name="Image12"
+																	src="images/topo.gif" alt="" id="Image62"
+																	onmouseover="MM_showHideLayers(&#39;Layer62&#39;,&#39;&#39;,&#39;show&#39;)"
+																	onmouseout="MM_showHideLayers(&#39;Layer62&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+															</div></td>
+													</tr>
+													<tr>
+														<td width="570" height="30" align="right" valign="top"
+															style="padding-right: 20px;"></td>
+														<td width="10" height="30" align="left" valign="top"><div
+																id="Layer63" align="right"
+																style="position: absolute; width: 290px; height: 30px; z-index: 2; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: hidden;">
+																<a href="#" target="_parent"><span
+																	class="h1">海清商务酒店</span></a> <img src="images/topo0.gif">
+															</div></td>
+														<td width="290" align="left" valign="top"
+															style="padding-right: 11px;"><div align="right">
+																<a href="#"
+																	onmouseout="MM_swapImgRestore()"
+																	onmouseover="MM_swapImage(&#39;Image13&#39;,&#39;&#39;,&#39;images/topo0.gif&#39;,1)"
+																	target="_parent"><img border="0" name="Image13"
+																	src="images/topo.gif" alt="" id="Image13"
+																	onmouseover="MM_showHideLayers(&#39;Layer63&#39;,&#39;&#39;,&#39;show&#39;)"
+																	onmouseout="MM_showHideLayers(&#39;Layer63&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+															</div></td>
+													</tr>
+													<tr>
+														<td width="570" height="30" align="right" valign="top"
+															style="padding-right: 20px;"></td>
+														<td width="10" height="30" align="left" valign="top"><div
+																id="Layer64" align="right"
+																style="position: absolute; width: 290px; height: 30px; z-index: 2; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: hidden;">
+																<a href="#" target="_parent"><span
+																	class="h1">海情服务式公寓酒店</span></a> <img src="images/topo0.gif">
+															</div></td>
+														<td width="290" align="left" valign="top"
+															style="padding-right: 11px;"><div align="right">
+																<a href="#"
+																	onmouseout="MM_swapImgRestore()"
+																	onmouseover="MM_swapImage(&#39;Image14&#39;,&#39;&#39;,&#39;images/topo0.gif&#39;,1)"
+																	target="_parent"><img border="0" name="Image14"
+																	src="images/topo.gif" alt="" id="Image14"
+																	onmouseover="MM_showHideLayers(&#39;Layer64&#39;,&#39;&#39;,&#39;show&#39;)"
+																	onmouseout="MM_showHideLayers(&#39;Layer64&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+															</div></td>
+													</tr>
+													<tr>
+														<td width="570" height="30" align="right" valign="top"
+															style="padding-right: 20px;"></td>
+														<td width="10" height="30" align="left" valign="top"><div
+																id="Layer65" align="right"
+																style="position: absolute; width: 290px; height: 30px; z-index: 2; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: hidden;">
+																<a href="#" target="_parent"><span
+																	class="h1">华光凯莱酒店</span></a> <img src="images/topo0.gif">
+															</div></td>
+														<td width="290" align="left" valign="top"
+															style="padding-right: 11px;"><div align="right">
+																<a href="#"
+																	onmouseout="MM_swapImgRestore()"
+																	onmouseover="MM_swapImage(&#39;Image15&#39;,&#39;&#39;,&#39;images/topo0.gif&#39;,1)"
+																	target="_parent"><img border="0" name="Image15"
+																	src="images/topo.gif" alt="" id="Image15"
+																	onmouseover="MM_showHideLayers(&#39;Layer65&#39;,&#39;&#39;,&#39;show&#39;)"
+																	onmouseout="MM_showHideLayers(&#39;Layer65&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+															</div></td>
+													</tr>
+
+													<tr>
+														<td width="570" height="30" align="right" valign="top"
+															style="padding-right: 20px;"></td>
+														<td width="10" height="30" align="left" valign="top"><div
+																id="Layer66" align="right"
+																style="position: absolute; width: 290px; height: 30px; z-index: 2; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: hidden;">
+																<a href="#" target="_parent"><span
+																	class="h1">宁丰宾馆</span></a> <img src="images/topo0.gif">
+															</div></td>
+														<td width="290" align="left" valign="top"
+															style="padding-right: 11px;"><div align="right">
+																<a href="#"
+																	onmouseout="MM_swapImgRestore()"
+																	onmouseover="MM_swapImage(&#39;Image16&#39;,&#39;&#39;,&#39;images/topo0.gif&#39;,1)"
+																	target="_parent"><img border="0" name="Image16"
+																	src="images/topo.gif" alt="" id="Image16"
+																	onmouseover="MM_showHideLayers(&#39;Layer66&#39;,&#39;&#39;,&#39;show&#39;)"
+																	onmouseout="MM_showHideLayers(&#39;Layer66&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+															</div></td>
+													</tr>
+													<tr>
+														<td width="570" height="30" align="right" valign="top"
+															style="padding-right: 20px;"></td>
+														<td width="10" height="30" align="left" valign="top"><div
+																id="Layer67" align="right"
+																style="position: absolute; width: 290px; height: 30px; z-index: 2; overflow: visible; padding-top: 0px; padding-right: 0px; visibility: hidden;">
+																<a href="#" target="_parent"><span
+																	class="h1">香水湾酒店</span></a> <img src="images/topo0.gif">
+															</div></td>
+														<td width="290" align="left" valign="top"
+															style="padding-right: 11px;"><div align="right">
+																<a href="#"
+																	onmouseout="MM_swapImgRestore()"
+																	onmouseover="MM_swapImage(&#39;Image17&#39;,&#39;&#39;,&#39;images/topo0.gif&#39;,1)"
+																	target="_parent"><img border="0" name="Image17"
+																	src="images/topo.gif" alt="" id="Image17"
+																	onmouseover="MM_showHideLayers(&#39;Layer67&#39;,&#39;&#39;,&#39;show&#39;)"
+																	onmouseout="MM_showHideLayers(&#39;Layer67&#39;,&#39;&#39;,&#39;hide&#39;)"></a>
+															</div></td>
+													</tr>
+													 -->
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="width: 870px">
+								<table width="870" height="21" border="0" cellpadding="0"
+									cellspacing="0">
+									<tbody>
+										<tr>
+											<td align="right" valign="top" style="PADDING-right: 25px;">
+												<!--<a href="ht.html">1</a> | <a href="ht2.html">2</a>　More>>-->
+											</td>
+										</tr>
+									</tbody>
+								</table>
+				</div>
+				</div>
+				</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

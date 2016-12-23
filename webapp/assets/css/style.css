@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* CSS Document */
+.row{font-family:"微软雅黑";padding:0px 5px}
+/*列表页*/
+.MainColor_red{color:#e74c3c}
+.list-table .normal{padding:10px 0px;font-family:"微软雅黑", "宋体", "黑体"; font-size:12px;padding-left:2px;}
+.list-title{width:100%;height:100%;padding-left:12px}
+.list-title-span{display:block;font-size:14px;}
+.list-newmoney{display:block}
+.list-info{margin-left:2px}
+.list-oldmoney{text-decoration:line-through;color:#5c5b5b;font-size:12px;}
+.border-bottom-line td{height:4px;padding:0px}
+.border-bottom{display:block;width:100%;height:3px;background:url(../images/border-img.jpg) repeat;margin-top:3px}
+.container-fluid{padding:0px 5px}
+.list-img{width:80px;border:2px solid #f7f5f5}
+/*商品详情页*/
+.banner{width:100%}
+.banner-img{width:90%;display:block;margin:0px auto}
+.center-title{width:100%;display:block;padding:5px;background:#333;filter: alpha(opacity=60);opacity:0.6;font-family:"微软雅黑", "宋体", "黑体"; font-size:12px; color:#fff}
+.bottom-info{width:100%;font-family:"微软雅黑", "宋体", "黑体"; font-size:12px;padding:5px 0px }
+.price{display:block;padding:10px 5px;float:left;color:#F00;font-size:14px;}
+.price1{display:block;padding:10px 5px;float:right;}
+.price2{display:block;padding:5px 5px 16px 5px;float:none;clear:both;border-bottom:1px solid #dadada}
+.price-sup{text-decoration:line-through}
+.info-text{font-family:"微软雅黑", "宋体", "黑体"; font-size:12px;padding:5px;line-height:22px;}
+.info-text-title{display:block;text-align:center;font-family:"微软雅黑", "宋体", "黑体"; font-size:14px;font-weight:bold;line-height:30px; }
+.info-text-content{text-indent:2em}
+/*分享主页*/
+.share-list{margin:0px;padding:0px 10px;font-family:"微软雅黑", "宋体", "黑体"; font-size:14px;color:#717171;list-style-type:none}
+.share-info{width:100%;border:#babebf 1px solid;border-radius:8px;background:#fcfcfc;height:100%;margin-top:20px;padding-bottom:20px}
+.share-head{width:50px;heigth:50px;border:#fff 1px solid;border-radius:8px;background:#fcfcfc;position:relative;top:-10px;display:inline-block;float:left}
+.share-title{position:relative;float:left;display:inline-block;width:50%;left:10px;top:5px;line-height:18px}
+.share-nicheng{display:block}
+.share-time{display:block;color:#d4d4d4;font-size:12px;}
+.share-comment{float:right;padding-right:5px;padding-top:2px;}
+.share-zan-img{width:16px;}
+.share-pinglun{font-size:12px}
+.share-pictrue{clear:both;width:90%;margin:0px auto;}
+.share-pictrue-img{width:90%;display:block;margin:0px auto;border:1px solid #c7c7c7;border-radius:5px;margin-top:10px}
+.share-text{width:90%;margin:0px auto;margin-top:10px;color:#9da0a3;clear:both}
+.one-line{display:block}
+.pinglun-all{list-style-type:none;margin-left:-38px;}
+.pinglun-alone{display:block;border:1px #dbe0e2 solid;border-radius:5px;color:#668199;background:#f1f2f4;padding:5px;margin-top:10px;font-size:12px}
+.pinglun-head{display:block;float:left;width:35px;}
+.pinglun-head-img{width:36px;border:1px solid #c8c9ca;border-radius:50px;}
+.pinglun-nicheng{font-size:10px;width:60%;display:block;float:left;margin-left:10px;color:#aaabac}
+.pinglun-time{display:block;float:right;padding-right:2px;color:#b9b9b9}
+.pinglun-address{font-size:10px;font-family: "宋体";color:#b9b9b9;display:block}
+.pinglun-text{display:block;clear:both;text-indent:2em}
+.share-a{text-decoration:none}

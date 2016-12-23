@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- BPM工作流引擎 配置文件 管理类 -->
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration" depends-on="databaseMigrator">
+		<property name="dataSource" ref="dataSource" />
+		<!-- Database configurations 设置数据库schema的更新方式  在脚本结构发生变化时候，检查表结构是否存在，如果存在则更新，如果不存在则创建。-->
+		<property name="databaseSchemaUpdate" value="true" />
+		<!-- job executor configurations 是否启动jobExecutor。 JobExecutor是一个管理一系列激活timer和异步消息的线程的组件。-->
+		<property name="jobExecutorActivate" value="false" />
+        <!-- 支持的数据库版本 -->
+		<property name="history" value="audit" />
+
+		<!-- 添加的自定义监听器 -->
+ 		<property name="customDefaultBpmnParseHandlers">
+    	 	<list>
+				<bean class="com.ibusiness.bpm.listener.ProxyUserTaskBpmnParseHandler">
+				    <!-- 在记录history之前执行的TaskListener -->
+					<property name="taskListenerId" value="customTaskListener"/>
+					<property name="useDefaultUserTaskParser" value="true"/>
+				</bean>
+    	 	</list>
+		</property>
+ 		<property name="postBpmnParseHandlers">
+    	 	<list>
+				<bean class="com.ibusiness.bpm.listener.ProxyUserTaskBpmnParseHandler">
+				    <!-- 在记录history之后执行的TaskListener  -->
+					<property name="taskListenerId" value="postTaskListener"/>
+				</bean>
+    	 	</list>
+		</property>
+
+		<property name="bpmnParser">
+			<bean class="com.ibusiness.bpm.parser.CustomBpmnParser" />
+		</property>
+        <!-- 事务管理 -->
+		<property name="transactionManager" ref="transactionManager"/>
+		<!-- (databaseType 不用修改,即使连接其他类型数据库)  act引擎会自动替换成相应的type,这里加上是因为act不识别hsqldb类型,故直接映射成H2-->
+		<property name="databaseType" value="${application.database.type}"/> <!-- mysql -->
+
+		<!-- 生成流程图的字体 -->
+        <property name="activityFontName" value="宋体"/>
+        <property name="labelFontName" value="宋体"/>
+
+		<!-- 组织机构适配 
+        <property name="customSessionFactories">
+			<list>
+				<bean class="com.ibusiness.bpm.CustomGroupEntityManagerFactory" >
+					<property name="groupEntityManager">
+						<bean class="com.ibusiness.bpm.CustomGroupEntityManager">
+							<property name="jdbcTemplate" ref="jdbcTemplate"/>
+						</bean>
+                    </property>
+               </bean>
+           </list>
+		</property>-->
+        
+        <!-- 工作日历 
+		<property name="businessCalendarManager" ref="businessCalendarManager"/>-->
+
+		<!-- //更换id生成策略
+		<property name="idGenerator">
+			<bean class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />
+		</property>
+		-->
+	</bean>
+    <!-- 提供了ProcessEngine的配置和创建的功能。 -->
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration"/>
+	</bean>
+	<!-- 任何与静态资源有关的数据(比如流程定义)都可以通过 RepositoryService访问 -->
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <!-- 所有与流程运行状态相关的东西都可以通过RuntimeService获得 -->
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <!-- 表单属性可以通过  -->
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
+    <!-- 管理（创建，更新，删除，查询...）群组和用户 -->
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService"/>
+    <!-- 任务是由系统中真实人员执行的，它是Activiti这类BPMN引擎的核心功能之一。 所有与任务有关的功能都包含在TaskService中 -->
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <!-- HistoryService提供了Activiti引擎的所有历史数据 -->
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <!-- ManagementService在使用Activiti的定制环境中基本上不会用到。 -->
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+
+	<!-- 自动部署  -->
+	<bean id="autoDeployer" class="com.ibusiness.bpm.suppor.AutoDeployer" depends-on="applicationContextHelper">
+		<property name="enable" value="${bpm.auto.deploy}"/>
+		<property name="processEngine" ref="processEngine"/>
+        <property name="deploymentResources">
+            <list>
+                <value>classpath*:/bpmn2/*</value>
+            </list>
+        </property>
+	</bean>
+
+	<!-- 在记录history之前执行的TaskListener -->
+	<bean id="customTaskListener" class="com.ibusiness.bpm.listener.ProxyTaskListener">
+		<property name="taskListeners">
+			<list>
+			    <!-- 
+				<bean class="com.ibusiness.bpm.listener.ConfUserTaskListener"/>
+				<bean class="com.ibusiness.bpm.listener.TaskConfTaskListener"/>
+				<bean class="com.ibusiness.bpm.listener.AssigneeAliasTaskListener"/>
+				<bean class="com.ibusiness.bpm.listener.DelegateTaskListener"/>
+				<bean class="com.ibusiness.bpm.listener.CopyTaskListener"/> -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 在记录history之后执行的TaskListener -->
+	<bean id="postTaskListener" class="com.ibusiness.bpm.listener.ProxyTaskListener">
+		<property name="taskListeners">
+			<list>
+			    <!-- 
+				<bean class="com.ibusiness.bpm.listener.AutoCompleteFirstTaskListener"/>
+				<bean class="com.ibusiness.bpm.listener.SkipTaskListener"/>
+				<bean class="com.ibusiness.bpm.listener.NoticeTaskListener"/> -->
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>公告列表</title>
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	    // 取得参数
+		var LocString = String(window.document.location.href);
+		function GetQueryString(str) {
+			var rs = new RegExp("(^|)" + str + "=([^&]*)(&|$)", "gi").exec(LocString), tmp;
+			if (tmp = rs) {return tmp[2];}
+			return "没有这个参数";
+		}
+		// 取得指定数据
+		function getArticlelistData(){
+		    var url = "/iBusiness/rs/html/html-cmsArticleView?id="+GetQueryString("id");
+		    var data;
+			$.ajax({
+				type: "post",
+				dataType: "json",
+			//	contentType: "application/json; charset=utf-8", 
+			//	async: false,
+				url: url,
+				data: data,
+				success: function(json){
+					// 
+					document.getElementById("content").innerHTML = json.content;
+					// 
+					document.getElementById("title").innerHTML = json.title;
+					// 
+					document.getElementById("userName").innerHTML = json.userName;
+					// 
+				//	document.getElementById("creatTime").innerHTML = json.creatTime;
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					alert("============服务器异常请稍后再试 ============");
+				}
+			});
+		}
+		getArticlelistData();
+	</script>
+</head>
+
+<body>
+	<div class="row">
+		<div class="col-lg-1"></div>
+
+		<!-- start of main -->
+		<div class="panel panel-default col-lg-10">
+			<div class="panel-heading"><h4 align="center" class="panel-title" id="title"></h4></div>
+			<div class="panel-body" id="content"></div>
+			<div class="panel-body">
+			    <div class="col-lg-10 col-lg-offset-5">
+			        <button type="button" onclick="history.back();" class="btn btn-primary a-cancel">返回</button>
+			    </div>
+			 </div>
+		</div>
+		<!-- end of main -->
+	</div>
+
+</body>
+
+</html>

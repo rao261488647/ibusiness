@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- 该路径下的资源不用过滤 -->
+	<!-- 不要过滤图片等静态资源，其中**代表可以跨越目录，*不可以跨越目录 -->
+	<http security="none" pattern="/plugin/**" />
+	<http security="none" pattern="/favicon.ico" />
+	<http security="none" pattern="/**/*.htm" />
+	<http security="none" pattern="/**/*.swf" />
+	<http security="none" pattern="/**/*.js" />
+	<http security="none" pattern="/**/*.css" />
+	<http security="none" pattern="/**/*.jpg" />
+	<http security="none" pattern="/**/*.gif" />
+	<http security="none" pattern="/**/*.png" />
+
+	<!-- auto-config='true'将自动配置几种常用的权限控制机制，包括form, anonymous, rememberMe -->
+	<!-- 创建autoLoginFilter,switchUserFilter,并使用它们替换系统原来创建的那个过滤器 -->
+	<http auto-config='true' access-decision-manager-ref='accessDecisionManager' security-context-repository-ref="securityContextRepository">
+		<!-- 让没登陆的用户可以访问login.jsp   authentication-failure-url表示用户登陆失败时，跳转到哪个页面   default-target-url表示登陆成功时，跳转到哪个页面 -->
+		<form-login login-page="/common/login.jsp" authentication-failure-url="/common/login.jsp?error=true" default-target-url="/" />
+		<!-- 自定义 自动登录过滤器.
+		       custom-filter标签，它表示将autoLoginFilter放在框架原来的SECURITY_CONTEXT_FILTER过滤器之前，
+		       这样我们的过滤器会先于原来的过滤器执行，因为它的功能与老过滤器完全一样，所以这就等于把原来的过滤器替换掉了 -->
+		<custom-filter ref="autoLoginFilter" after="SECURITY_CONTEXT_FILTER" />
+		<!-- 自定义switchUserFilter过滤器 -->
+		<custom-filter ref="switchUserFilter" position="SWITCH_USER_FILTER" />
+		<!-- 防止同一用户多次登录，使第二次登录失败 
+        <session-management>  
+                    <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />  
+        </session-management> 
+     --> 
+	</http>
+    <!-- 自定义AuthenticationProvider实现一个简单的单点登录 -->
+	<authentication-manager>
+		<authentication-provider ref="authenticationProvider" />
+	</authentication-manager>
+    <!-- Spring Security 提供的方法注解，需要添加元素 global-method-security 方法注解分别是：-->
+    <!-- @PreAuthorize：该注解用来确定一个方法是否应该被执行。该注解后面跟着的是一个表达式，如果表达式的值为真，则该方法会被执行。如 @PreAuthorize("hasRole('ROLE_USER')")就说明只有当前用户具有角色 ROLE_USER的时候才会执行。
+           @PostAuthorize：该注解用来在方法执行完之后进行访问控制检查。
+           @PostFilter：该注解用来对方法的返回结果进行过滤。从返回的集合中过滤掉表达式值为假的元素。如@PostFilter("hasPermission(filterObject, 'read')")说明返回的结果中只保留当前用户有读权限的元素。
+           @PreFilter：该注解用来对方法调用时的参数进行过滤。
+     -->
+	<global-method-security proxy-target-class="true" access-decision-manager-ref="accessDecisionManager"
+		secured-annotations="enabled" />
+</beans:beans>

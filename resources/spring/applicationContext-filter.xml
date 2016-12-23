@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 混合过滤器 -->
+	<bean id="compositeFilter" class="com.ibusiness.core.servlet.CompositeFilter">
+		<property name="filters">
+			<list>
+			    <!-- 字符过滤器requestUri path过滤  -->
+				<ref bean="characterEncodingFilter"/>
+				<!-- 语言过滤器  -->
+				<ref bean="acceptLanguageHeaderFilter"/>
+				<!-- 监控Java应用程序过滤器 -->
+				<ref bean="javasimonFilter"/>
+				<!-- 应用管理过滤器 
+				TODO 应用管理过滤器想取消掉 这样以后 url上就不用有default之类的了
+				<ref bean="scopeFilter"/>
+				-->
+				<!-- 通知公告过滤器 -->
+				 <!-- 拦截所有的访问请求进行权限校验和访问控制过滤器 -->
+				<ref bean="springSecurityFilterChainProxy"/>
+				<!-- hibernate保持Session过滤过滤器   -->
+				<ref bean="openSessionInViewFilter"/>
+				<!-- 对自身的接入系统管理的请求进行过滤的 -->
+				<ref bean="auditTrailFilter"/>
+				<!-- 其他过滤器 -->
+				<ref bean="restFilter"/>
+				<!-- servlet过滤器 -->
+				<ref bean="servletFilter"/>
+			</list>
+		</property>
+	</bean>
+    <!-- 字符过滤器requestUri path过滤  -->
+	<bean id="characterEncodingFilter" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="encode"/>
+		<property name="filter">
+			<bean class="org.springframework.web.filter.CharacterEncodingFilter">
+				<property name="encoding" value="UTF-8"/>
+				<property name="forceEncoding" value="true"/>
+			</bean>
+		</property>
+	</bean>
+    <!-- 语言过滤器  -->
+	<bean id="acceptLanguageHeaderFilter" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="i18n"/>
+		<property name="filter">
+			<bean class="com.ibusiness.core.i18n.AcceptLanguageHeaderFilter"/>
+		</property>
+	</bean>
+    <!-- 监控Java应用程序过滤器 -->
+	<bean id="javasimonFilter" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="javasimon"/>
+		<property name="filter">
+			<bean class="org.javasimon.javaee.SimonServletFilter"/>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="stopwatch-source-props">
+					<value>includeHttpMethodName=ALWAYS</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+    <!-- 应用管理过滤器 
+    TODO 应用管理过滤器想取消掉 这样以后 url上就不用有default之类的了
+	<bean id="scopeFilter" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="scope"/>
+		<property name="filter">
+			<bean class="com.ibusiness.bridge.scope.ScopeFilterFactoryBean">
+				<property name="scopeConnector" ref="scopeConnector"/>
+				<property name="type" value="${application.scope.type}"/>
+			</bean>
+		</property>
+		<property name="enable" value="${filter.scope.enable}"/>
+	</bean>
+	 -->
+	
+    <!-- 拦截所有的访问请求进行权限校验和访问控制过滤器 -->
+	<bean id="springSecurityFilterChainProxy" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="security"/>
+		<property name="filter" ref="springSecurityFilterChain"/>
+	</bean> 
+    <!-- hibernate保持Session过滤, 解决延迟加载带来的问题-->
+	<bean id="openSessionInViewFilter" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="hibernate"/>
+		<property name="filter">
+			<bean class="org.springframework.orm.hibernate4.support.OpenSessionInViewFilter"/>
+		</property>
+		<property name="excludePatterns" value="/common/util/*"/>
+	</bean>
+    <!-- 对自身的接入系统管理的请求进行过滤的。 -->
+	<bean id="auditTrailFilter" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="inspektr"/>
+		<property name="filter">
+			<bean class="com.github.inspektr.common.web.ClientInfoThreadLocalFilter"/>
+		</property>
+		<property name="enable" value="${filter.inspektr.enable}"/>
+	</bean>
+    <!-- 其他过滤器  web service 接口-->
+	<bean id="restFilter" class="com.ibusiness.core.servlet.ProxyFilter">
+		<property name="name" value="rest"/>
+		<property name="filter">
+			<bean class="com.ibusiness.core.ext.rest.RestFilter"/>
+		</property>
+		<property name="urlPattern" value="/rs/*"/>
+	</bean>
+ 
+ 
+	<!-- ====================================================================== -->
+    <!-- servlet过滤器 -->
+	<bean id="servletFilter" class="com.ibusiness.core.servlet.ServletFilter">
+		<property name="name" value="servlet"/>
+		<property name="servletMap">
+			<map>
+				<entry key="/jolokia/*">
+					<ref bean="jolokia"/>
+				</entry>
+				<entry key="/javasimon/*">
+					<ref bean="javasimon"/>
+				</entry>
+				<entry key="*.do">
+					<ref bean="springmvc"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+    <!-- servlet过滤器servletMap参数的对象 -->
+	<bean id="jolokia" class="com.ibusiness.core.servlet.ProxyServlet">
+		<constructor-arg index="0" value="jolokia"/>
+		<constructor-arg index="1">
+			<bean class="org.jolokia.http.AgentServlet"/>
+		</constructor-arg>
+		<constructor-arg index="2" value="${servlet.jolokia.enable}"/>
+	</bean>
+
+	<bean id="javasimon" class="com.ibusiness.core.servlet.ProxyServlet">
+		<constructor-arg index="0" value="javasimon"/>
+		<constructor-arg index="1">
+			<bean class="org.javasimon.console.SimonConsoleServlet"/>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<map>
+				<entry key="url-prefix">
+					<value>/javasimon</value>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+    <!-- springMVC负责职责的分派,用于控制流程 -->
+	<bean id="springmvc" class="com.ibusiness.core.servlet.ProxyServlet">
+		<constructor-arg index="0" value="springmvc"/>
+		<constructor-arg index="1">
+			<bean class="org.springframework.web.servlet.DispatcherServlet"/>
+		</constructor-arg>
+	</bean>
+
+</beans>

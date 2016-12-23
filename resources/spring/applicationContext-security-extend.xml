@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 配置过滤器:负责对用户的请求资源进行安全认证 -->
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<constructor-arg>
+		    <!-- 只要有一个投票器通过验证就允许用户访问 -->
+			<list>
+				<bean class="com.ibusiness.security.client.AuthenticatedVoter"/>
+				<bean class="com.ibusiness.security.perm.PermissionVoter">
+				    <property name="permissionChecker" ref="permissionChecker"/>
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+    <!-- 自定义AuthenticationProvider实现一个简单的单点登录等功能 -->
+	<bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="userDetailsService"/>
+		<property name="passwordEncoder" ref="passwordEncoder"/>
+	</bean>
+    <!-- 取得默认用户信息 -->
+	<bean id="userDetailsService" class="com.ibusiness.security.client.DefaultUserDetailsService">
+		<property name="userAuthConnector" ref="userAuthConnector"/>
+		<property name="debug" value="${security.autologin.enabled}"/>
+	</bean>
+	
+    <!-- 用户的密码加密或解密 -->
+	<bean id="passwordEncoder" class="com.ibusiness.security.util.PasswordEncoderFactoryBean">
+		<property name="type" value="${security.passwordencoder.type}"/>
+		<property name="salt" value="${security.passwordencoder.salt}"/>
+	</bean>
+	<bean id="simplePasswordEncoder" factory-bean="&amp;passwordEncoder" factory-method="getSimplePasswordEncoder"/>
+    
+    <!-- 自动登录过滤器 -->
+    <bean id="autoLoginFilter" class="com.ibusiness.security.client.AutoLoginFilter">
+		<property name="enabled" value="${security.autologin.enabled}" />
+		<property name="defaultUserName" value="${security.autologin.username}" />
+		<property name="userDetailsService" ref="userDetailsService" />
+    </bean>
+    
+    <!-- 配置SwitchUserFilter 实现用户切换-->
+	<bean id="switchUserFilter" class="org.springframework.security.web.authentication.switchuser.SwitchUserFilter">
+		<property name="userDetailsService" ref="userDetailsService" />
+		<!-- targetUrl属性表示切换用户成功后应该转向哪个地址 -->
+		<property name="targetUrl" value="/common/util/switchUser.jsp" />
+	</bean>
+    <!-- 许可 -->
+	<bean id="permissionChecker" class="com.ibusiness.security.perm.PermissionChecker"/>
+	
+    <!-- 资源详细监控 -->
+    <bean id="resourceDetailsMonitor" class="com.ibusiness.security.client.ResourceDetailsMonitor">
+		<property name="debug" value="${security.resource.debug}"/>
+		<!-- FilterSecurityInterceptor 过滤器 主要负责授权的工作-->
+		<property name="filterSecurityInterceptor"
+			ref="org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0"/>
+		<!-- 调用databaseUrlSourceFetcher -->
+		<property name="urlSourceFetcher" ref="${security.url.fetcher.type}UrlSourceFetcher"/>
+		<!-- 使用安全cookie，在名称空间解析代码删除使用过期的方法  -->
+		<property name="delegatingMethodSecurityMetadataSource"
+			ref="org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource#0"/>
+		<!-- 调用databaseMethodSourceFetcher -->
+		<property name="methodSourceFetcher" ref="${security.method.fetcher}MethodSourceFetcher"/>
+    </bean>
+    
+    <!-- 资源订阅 -->
+	<bean id="resourceSubscriber" class="com.ibusiness.security.client.ResourceSubscriber"/>
+    <!-- 资源包发布 -->
+	<bean id="resourcePublisher" class="com.ibusiness.security.client.ResourcePublisher"/>
+	
+    <!-- 开启Spring Security3认证和授权日志 -->
+	<bean class="org.springframework.security.authentication.event.LoggerListener"/>
+	<bean class="org.springframework.security.access.event.LoggerListener"/>
+
+	<!-- 从数据库AUTH_ACCESS表中提取URL -->
+	<bean id="databaseUrlSourceFetcher" class="com.ibusiness.security.impl.DatabaseUrlSourceFetcher">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+
+	<!-- 从数据库AUTH_ACCESS表中提取数据 -->
+	<bean id="databaseMethodSourceFetcher" class="com.ibusiness.security.impl.DatabaseMethodSourceFetcher">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+    
+    <!-- 负责从SecurityContextRepository获取或存储SecurityContext。SecurityContext代表了用户安全和认证过的session -->
+	<bean id="securityContextRepository" class="com.ibusiness.security.client.CachedSecurityContextRepository">
+		<property name="userAuthConnector" ref="userAuthConnector"/>
+		<property name="debug" value="${security.autologin.enabled}"/>
+	</bean>
+
+</beans>

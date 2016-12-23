@@ -1,0 +1,33 @@
+/** Old CSS
+label.validate-error,span.validate-error{
+	background:url(images/delete.png) no-repeat 0px 0px;
+	padding-left: 16px;
+	padding-bottom: 2px;
+	font-weight: bold;
+	color: #EA5200;
+	vertical-align: inherit;
+	display: inline;
+}*/
+/** new CSS */
+label.validate-error,span.validate-error{
+	padding-left: 0px;
+	padding-bottom: 2px;
+	font-weight: bold;
+	color: #EA5200;
+	display: inline;
+}
+input.validate-error, select.validate-error, textarea.validate-error{
+	border: 1px solid red; 
+	background:url(images/delete.png)  no-repeat 0px 0px;
+	display: inline;
+}
+input.validate-error, textarea.validate-error{
+	background-position:97% 50%;
+}
+select.validate-error{
+	background-position:93% 50%;
+}
+input.valid, select.valid, textarea.valid{
+	border: 1px solid #93e76f; 
+	display: inline;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>仿苹果界面</title>
+<meta http-equiv="imagetoolbar" content="no">
+
+<style type="text/css">
+/*因为是个拿来iframe页面
+为了达到IE和firefox浏览效果精确同一，我把原本％定制的值全部换成了px来定制，以下CSS各同，除了JS里面的设置*/
+HTML {
+	OVERFLOW: hidden
+}
+
+BODY {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	BACKGROUND: url(images/sbg.jpg) #111 fixed center center;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	WIDTH: 900px;
+	PADDING-TOP: 0px;
+	HEIGHT: 329px
+}
+
+A {
+	COLOR: #fff;
+	TEXT-DECORATION: none
+}
+
+A:visited {
+	COLOR: #fff;
+	TEXT-DECORATION: none
+}
+
+#wrapper {
+	
+}
+
+#header {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 12px;
+	Z-INDEX: 800;
+	BACKGROUND: #000;
+	FILTER: alpha(opacity = 60);
+	WIDTH: 900px;
+	COLOR: #fff;
+	BORDER-BOTTOM: #222 2px solid;
+	FONT-FAMILY: verdana, 宋体;
+	POSITION: relative;
+	HEIGHT: 60px;
+	TEXT-ALIGN: left;
+	moz-opacity: 0.6;
+	opacity: 0.6
+}
+
+#header DIV {
+	PADDING-RIGHT: 0px;
+	DISPLAY: block;
+	PADDING-LEFT: 10px;
+	PADDING-BOTTOM: 0px;
+	PADDING-TOP: 10px
+}
+
+#header SPAN A {
+	FONT-WEIGHT: normal;
+	FONT-SIZE: 12px;
+	COLOR: #4cac4c
+}
+/*注意这一句，TOP值是个关键，有时候图片或者文字注释很多的时候，需要调节这里，*/
+#imageFlow {
+	LEFT: 0%;
+	WIDTH: 900px;
+	POSITION: absolute;
+	TOP: -405px;
+	HEIGHT: 287px
+}
+
+#imageFlow .diapo {
+	LEFT: -1000px;
+	CURSOR: pointer;
+	POSITION: absolute;
+	ms-interpolation-mode: nearest-neighbor
+}
+
+#imageFlow .link {
+	BORDER-RIGHT: #8F702D 2px solid;
+	BORDER-TOP: #8F702D 2px solid;
+	MARGIN-BOTTOM: -3px;
+	MARGIN-LEFT: -3px;
+	BORDER-LEFT: #8F702D 2px solid;
+	BORDER-BOTTOM: #8F702D 2px solid
+}
+
+#imageFlow .bank {
+	VISIBILITY: hidden
+}
+
+#imageFlow .top {
+	BACKGROUND: #181818;
+	WIDTH: 900px;
+	POSITION: absolute;
+	HEIGHT: 170px
+}
+
+#imageFlow .text {
+	Z-INDEX: 1000;
+	right: 450px;
+	left: 560px;
+	FONT-SIZE: 14px;
+	WIDTH: 240px;
+	COLOR: #ffffff;
+	BOTTOM: 310px;
+	FONT-FAMILY: verdana, arial, Helvetica, sans-serif;
+	POSITION: absolute;
+	TEXT-ALIGN: left;
+	background: #8F702D;
+	border: 1px #8F702D dashed;
+	PADDING-left: 35px;
+	PADDING-right: 5px;
+	PADDING-top: 5px;
+	PADDING-bottom: 5px;
+	FILTER: alpha(opacity = 70);
+}
+
+#imageFlow .title {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 0.9em
+}
+
+#imageFlow .legend {
+	FONT-SIZE: 0.8em
+}
+/*scrollbar和scrollbar2里面，BOOTOM值是个会需要调整的值*/
+#imageFlow .scrollbar {
+	Z-INDEX: 1000;
+	LEFT: 0;
+	WIDTH: 890px;
+	BOTTOM: 97px;
+	POSITION: absolute;
+	HEIGHT: 80px;
+}
+
+.scrollbar2 {
+	Z-INDEX: 2;
+	LEFT: -48px;
+	WIDTH: 912px;
+	BOTTOM: 80px;
+	POSITION: absolute;
+	HEIGHT: 80px
+}
+
+.ap01 {
+	background-color: #;
+	filter: Alpha(Opacity = 85);
+}
+
+#imageFlow .track {
+	FILTER: alpha(opacity = 60);
+	LEFT: 0%;
+	WIDTH: 900px;
+	POSITION: absolute;
+	HEIGHT: 16px;
+	opacity: 0.3;
+	background-position: left top;
+	background: repeat;
+}
+
+#imageFlow .arrow-left {
+	CURSOR: pointer;
+	POSITION: absolute
+}
+
+#imageFlow .arrow-right {
+	RIGHT: 0px;
+	CURSOR: pointer;
+	POSITION: absolute
+}
+
+#imageFlow .bar {
+	FILTER: alpha(opacity = 80);
+	LEFT: 25px;
+	CURSOR: move;
+	POSITION: absolute;
+}
+</style>
+
+<meta content="MSHTML 6.00.2900.3492" name="GENERATOR">
+</head>
+<body marginwidth="0" marginheight="0">
+
+</body>
+</html>

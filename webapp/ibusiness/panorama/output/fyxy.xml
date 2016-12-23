@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tour start="node2">
+  <panorama id="node2" hideabout="1">
+    <view fovmode="0" pannorth="0">
+      <start pan="184.5" fov="70" tilt="33"/>
+      <min pan="0" fov="5" tilt="-90"/>
+      <max pan="360" fov="120" tilt="90"/>
+    </view>
+    <userdata title="飞鱼洗衣" datetime="2015年" description="e家人 合作电商" copyright="" tags="" author="巨米科技发展有限公司" source="" comment="" info="" longitude="" latitude=""/>
+    <hotspots width="180" height="0" wordwrap="1">
+      <label width="180" backgroundalpha="1" enabled="1" height="0" backgroundcolor="0xffffff" bordercolor="0x000000" border="1" textcolor="0x000000" background="1" borderalpha="1" borderradius="1" wordwrap="1" textalpha="1"/>
+      <polystyle mode="0" backgroundalpha="0.2509803921568627" backgroundcolor="0x0000ff" bordercolor="0x0000ff" borderalpha="1"/>
+      <hotspot title="飞鱼洗衣服务大厅" target="13.5/-3.5/65" pan="164.355" skinid="hotspot" url="{node1}" id="Point01" tilt="4.62347"/>
+      <hotspot title="飞鱼洗衣配送专车" target="" pan="11.3347" skinid="biaozhi" url="" id="Point02" tilt="-24.5744"/>
+      <hotspot title="飞鱼洗衣配送专车" target="" pan="85.2633" skinid="biaozhi" url="" id="Point03" tilt="-4.33695"/>
+      <hotspot title="飞鱼洗衣配送专车" target="" pan="74.4653" skinid="biaozhi" url="" id="Point04" tilt="-11.2959"/>
+      <hotspot title="飞鱼洗衣配送专车" target="" pan="-72.1294" skinid="biaozhi" url="" id="Point05" tilt="-9.55935"/>
+    </hotspots>
+    <media/>
+    <input tile0url="images/fyxy_o_0.jpg" prev5url="images/fyxy_o_preview_5.jpg" prev4url="images/fyxy_o_preview_4.jpg" prev3url="images/fyxy_o_preview_3.jpg" prev2url="images/fyxy_o_preview_2.jpg" prev1url="images/fyxy_o_preview_1.jpg" prev0url="images/fyxy_o_preview_0.jpg" tile5url="images/fyxy_o_5.jpg" tilesize="1000" tile4url="images/fyxy_o_4.jpg" tile3url="images/fyxy_o_3.jpg" tilescale="1.01" tile2url="images/fyxy_o_2.jpg" tile1url="images/fyxy_o_1.jpg"/>
+    <control simulatemass="1" lockedmouse="0" lockedkeyboard="0" dblclickfullscreen="1" invertwheel="0" lockedwheel="1" invertcontrol="1" speedwheel="1" sensitivity="8"/>
+  </panorama>
+  <panorama id="node1" hideabout="1">
+    <view fovmode="0" pannorth="0">
+      <start pan="14" fov="70" tilt="-3.5"/>
+      <min pan="0" fov="5" tilt="-90"/>
+      <max pan="360" fov="120" tilt="90"/>
+    </view>
+    <userdata title="飞鱼洗衣" datetime="2015年" description="e家人 合作电商" copyright="" tags="" author="几米科技发展有限公司" source="" comment="" info="" longitude="" latitude=""/>
+    <hotspots width="180" height="0" wordwrap="1">
+      <label width="180" backgroundalpha="1" enabled="1" height="0" backgroundcolor="0xffffff" bordercolor="0x000000" border="1" textcolor="0x000000" background="1" borderalpha="1" borderradius="1" wordwrap="1" textalpha="1"/>
+      <polystyle mode="0" backgroundalpha="0.2509803921568627" backgroundcolor="0x0000ff" bordercolor="0x0000ff" borderalpha="1"/>
+      <hotspot title="飞鱼洗衣洗衣间" target="348.5/-17/65.5" pan="48.8439" skinid="hotspot" url="{node3}" id="Point01" tilt="-4.51342"/>
+      <hotspot title="飞鱼洗衣配送专车停放区" target="1.5/-30.5/65" pan="-164.629" skinid="hotspot" url="{node2}" id="Point02" tilt="-15.8931"/>
+    </hotspots>
+    <media/>
+    <input tile0url="images/dating1_o_0.jpg" prev5url="images/dating1_o_preview_5.jpg" prev4url="images/dating1_o_preview_4.jpg" prev3url="images/dating1_o_preview_3.jpg" prev2url="images/dating1_o_preview_2.jpg" prev1url="images/dating1_o_preview_1.jpg" prev0url="images/dating1_o_preview_0.jpg" tile5url="images/dating1_o_5.jpg" tilesize="1000" tile4url="images/dating1_o_4.jpg" tile3url="images/dating1_o_3.jpg" tilescale="1.01" tile2url="images/dating1_o_2.jpg" tile1url="images/dating1_o_1.jpg"/>
+    <control simulatemass="1" lockedmouse="0" lockedkeyboard="0" dblclickfullscreen="1" invertwheel="0" lockedwheel="1" invertcontrol="1" speedwheel="1" sensitivity="8"/>
+  </panorama>
+  <panorama id="node3" hideabout="1">
+    <view fovmode="0" pannorth="0">
+      <start pan="0" fov="70" tilt="0"/>
+      <min pan="0" fov="5" tilt="-90"/>
+      <max pan="360" fov="120" tilt="90"/>
+    </view>
+    <userdata title="飞鱼洗衣" datetime="2015年" description="e家人 合作电商" copyright="" tags="" author="巨米科技发展有限公司" source="" comment="" info="" longitude="" latitude=""/>
+    <hotspots width="180" height="0" wordwrap="1">
+      <label width="180" backgroundalpha="1" enabled="1" height="0" backgroundcolor="0xffffff" bordercolor="0x000000" border="1" textcolor="0x000000" background="1" borderalpha="1" borderradius="1" wordwrap="1" textalpha="1"/>
+      <polystyle mode="0" backgroundalpha="0.2509803921568627" backgroundcolor="0x0000ff" bordercolor="0x0000ff" borderalpha="1"/>
+      <hotspot title="飞鱼洗衣服务大厅" target="14/-5.5/65" pan="-166.969" skinid="hotspot" url="{node1}" id="Point01" tilt="-15.5141"/>
+    </hotspots>
+    <media/>
+    <input tile0url="images/xiyifang1_o_0.jpg" prev5url="images/xiyifang1_o_preview_5.jpg" prev4url="images/xiyifang1_o_preview_4.jpg" prev3url="images/xiyifang1_o_preview_3.jpg" prev2url="images/xiyifang1_o_preview_2.jpg" prev1url="images/xiyifang1_o_preview_1.jpg" prev0url="images/xiyifang1_o_preview_0.jpg" tile5url="images/xiyifang1_o_5.jpg" tilesize="1000" tile4url="images/xiyifang1_o_4.jpg" tile3url="images/xiyifang1_o_3.jpg" tilescale="1.01" tile2url="images/xiyifang1_o_2.jpg" tile1url="images/xiyifang1_o_1.jpg"/>
+    <control simulatemass="1" lockedmouse="0" lockedkeyboard="0" dblclickfullscreen="1" invertwheel="0" lockedwheel="1" invertcontrol="1" speedwheel="1" sensitivity="8"/>
+  </panorama>
+</tour>

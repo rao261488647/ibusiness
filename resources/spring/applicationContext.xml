@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 通用配置：加载application.properties，自动扫描bean，其他初始化。-->
+    <!--  扫描从com根路径开始 -->
+	<context:component-scan base-package="com">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- 默认通过application.properties读取配置 -->
+    <bean id="applicationProperties" class="com.ibusiness.core.spring.ApplicationPropertiesFactoryBean"/>
+
+    <!-- 定义受环境影响易变的变量 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="applicationProperties"/>
+    </bean>
+
+	<!-- 国际化 定义上下文返回的消息的国际化 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames" value="${application.i18n.packages}"/>
+	</bean>
+
+    <!-- 消息提示时进行国际化 -->
+	<bean id="messageHelper" class="com.ibusiness.core.spring.MessageHelper"/>
+    <!-- 在ApplicationContext环境外获取bean的工具类 -->
+	<bean id="applicationContextHelper" class="com.ibusiness.core.spring.ApplicationContextHelper"/>
+	
+	<!-- doc文件上传用 -->
+    <bean id="storeConnector" class="com.ibusiness.doc.store.FileStoreConnector">
+        <!-- 文件上传后保存的地址 -->
+		<property name="baseDir" value="${store.baseDir}"/>
+	</bean>
+	
+	<!-- 数据库连接 -->
+	<import resource="applicationContext-jdbc.xml"/>
+	<!-- springMVC相关的配置 -->
+	<import resource="applicationContext-springmvc.xml"/>
+	<!-- 数据库持久层 -->
+	<import resource="applicationContext-hibernate.xml"/>
+    <!-- 用户账号，多租户，用户，用户权限暴露接口的配置，包括相关的缓存 -->
+	<import resource="applicationContext-bridge.xml"/>
+	<!-- 本地缓存和远程缓存的策略 -->
+	<import resource="applicationContext-cache.xml"/>
+    <!-- 对应web.xml(applicationContext-filter.xml)中的compositeFilter，这里配置系统的Filter和Servlet -->
+	<import resource="applicationContext-filter.xml"/>
+    <!-- 异步的消息订阅与发布 -->
+	<import resource="applicationContext-jms.xml"/>
+	<!-- 把一些bean导出成jmx 
+	<import resource="applicationContext-jmx.xml"/>
+	-->
+	<!-- 基于spring的定时任务
+	<import resource="applicationContext-scheduler.xml"/>
+	 -->
+	<!-- 权限配置 -->
+	<import resource="applicationContext-security-extend.xml"/>
+	<!-- 权限配置 -->
+	<import resource="applicationContext-security.xml"/>
+	<!-- activiti -->
+	<import resource="applicationContext-activiti.xml"/>
+	
+</beans>

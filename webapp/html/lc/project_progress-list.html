@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>工程进度列表</title>
+    <link href="../../plugin/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <script src="../../plugin/jquery/jquery.min.js"></script>
+    <script src="../../plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+	    // 取得参数
+		var LocString = String(window.document.location.href);
+		function GetQueryString(str) {
+			var rs = new RegExp("(^|)" + str + "=([^&]*)(&|$)", "gi").exec(LocString), tmp;
+			if (tmp = rs) {return tmp[2];}
+			return "没有这个参数";
+		}
+		// 取得进度列表数据
+		function getArticlelistData(){
+			var customername=encodeURI(encodeURI($("#customername").val()));
+			var projectname=encodeURI(encodeURI($("#projectname").val()));
+			
+		    var url = getRootPath() + "/rs/androidapp/project_progress-list?customername="+customername+"&projectname="+ projectname;
+		    var data = "customername="+customername+"&projectname="+ projectname;
+			$.ajax({
+				type: "post",
+				dataType: "json",
+				url: url,
+				data: data,
+				success: function(json){
+					// 进度列表
+					var progressList = json.progresslist;
+					// 先删除再插入
+					$("#progressBody :last-child").remove();
+					for (var i=0; i<progressList.length; i++) {
+						var content = "";
+						content = content + '<tr class="'+(i%2==1? "active":"")+'}">';
+						content = content + '<td><a href="'+getRootPath()+'/codegenerate/designmanage/progress-show.html?id='+progressList[i].id+'" ><span class="glyphicon glyphicon-eye-open"></span></a></td>';
+						content = content + '<td>'+progressList[i].customername+'</td><td>'+progressList[i].projectname+'</td>';
+						content = content + '<td>'+progressList[i].designname+'</td><td>'+progressList[i].worksmanage+'</td><td>'+progressList[i].currentprogress+'</td></tr>';
+						$("#progressBody").append(content);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					alert("============服务器异常请稍后再试 ============");
+				}
+			});
+		}
+		getArticlelistData();
+	</script>
+  </head>
+
+  <body>
+    <div class="row">
+    <div class="col-lg-1"></div>
+	<!-- start of main -->
+	<div class="panel panel-default col-lg-10 ">
+	    <!-- 查询条件 -->
+	          <div class="panel-heading"><h4 class="panel-title glyphicon glyphicon-paperclip">查询</h4></div>
+	          <div class="panel-body">
+		          <div id="search" class="content content-inner">
+					  <form name="cgForm" method="post" action="project_progress-list.do" class="form-inline">
+					    <div class="form-group">
+			                <label>客户名称:</label>
+			                <input type="text" id="customername" name="customername" >
+			                <label>工程项目名称:</label>
+			                <input type="text" id="projectname" name="projectname" >
+				            <a href="#" class="btn btn-primary btn-sm" onclick="getArticlelistData()"><span class="glyphicon glyphicon-search"></span>查询</a>
+				            <a href="index.html" class="btn btn-primary btn-sm" onclick="history.back();"><span class="glyphicon glyphicon-log-out"></span>返回</a>
+						</div>
+					 </form>
+				  </div>
+			  </div>
+		      <div class="panel-heading"><h4 class="panel-title glyphicon glyphicon-paperclip">工程进度管理列表</h4></div>
+		      <div class="panel-body">
+			    </div>
+			    <div class="content">
+				<form id="gridForm" name="gridForm" method='post' action="project_progress-remove.do" class="m-form-blank">
+					<table id="codeGrid" class="table table-hover table-striped">
+						<thead>
+							<tr>
+							    <th width="30">&nbsp;</th>
+								<th class="sorting">客户名称</th>
+								<th class="sorting">工程项目名称</th>
+								<th class="sorting">设计师名</th>
+								<th class="sorting">工长名字</th>
+								<th class="sorting">当前进度</th>
+							</tr>
+						</thead>
+						<tbody id="progressBody">
+
+						</tbody>
+					</table>
+				</form>
+			</div>
+	    </div>
+	<!-- end of main -->
+	</div>
+  </body>
+</html>

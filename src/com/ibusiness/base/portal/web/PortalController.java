@@ -1,6 +1,7 @@
 package com.ibusiness.base.portal.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,11 @@ import com.ibusiness.base.menu.dao.MenuDao;
 import com.ibusiness.base.menu.entity.Menu;
 import com.ibusiness.base.user.entity.UserBase;
 import com.ibusiness.bpm.service.BpmComBusiness;
+import com.ibusiness.common.model.CustomerCount;
 import com.ibusiness.common.service.CommonBusiness;
 import com.ibusiness.security.util.SpringSecurityUtils;
+import com.report.utils.DateUtil;
+import com.report.utils.SqlFormat;
 /**
  * 登录后首页controller
  * 
@@ -89,7 +93,9 @@ public class PortalController {
         
         // 设置桌面IMCA菜单
         session.setAttribute("deskMenuItems", deskmenus);
-        
+       // 首页数据
+       CustomerCount customerCount1 = SqlFormat.getBySql1_1(DateUtil.toString(new Date()));
+       model.addAttribute("customerCount1", customerCount1);
         // 返回JSP
         return "ibusiness/base/portal/portal.jsp";
     }

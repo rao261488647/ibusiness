@@ -21,10 +21,6 @@ import javax.persistence.SequenceGenerator;
 @Table(name = "IB_INSURANCE")
 public class InsuranceEntity implements java.io.Serializable {
     private static final long serialVersionUID = 0L;
-	/**范围*/
-	private java.lang.String scopeid;
-	/**UUID主键*/
-	private java.lang.String id;
 	/**司机姓名*/
 	private java.lang.String drivername;
 	/**联系方式*/
@@ -45,41 +41,13 @@ public class InsuranceEntity implements java.io.Serializable {
 	private java.lang.String newcarname;
 	/**替换车牌*/
 	private java.lang.String newcarnum;
+	/**UUID主键*/
+	private java.lang.String id;
+	/**范围*/
+	private java.lang.String scopeid;
+	/**出险金额*/
+	private java.lang.Double insuranceamount;
 	
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  范围
-	 */
-	@Column(name ="SCOPEID",nullable=true,length=64)
-	public java.lang.String getScopeid(){
-		return this.scopeid;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  范围
-	 */
-	public void setScopeid(java.lang.String scopeid){
-		this.scopeid = scopeid;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  UUID主键
-	 */
-	
-	@Id
-	@Column(name ="ID",nullable=false,length=64)
-	public java.lang.String getId(){
-		return this.id;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  UUID主键
-	 */
-	public void setId(java.lang.String id){
-		this.id = id;
-	}
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  司机姓名
@@ -239,5 +207,55 @@ public class InsuranceEntity implements java.io.Serializable {
 	 */
 	public void setNewcarnum(java.lang.String newcarnum){
 		this.newcarnum = newcarnum;
+	}
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  UUID主键
+	 */
+	
+	@Id
+	@Column(name ="ID",nullable=false,length=64)
+	public java.lang.String getId(){
+		return this.id;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  UUID主键
+	 */
+	public void setId(java.lang.String id){
+		this.id = id;
+	}
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  范围
+	 */
+	@Column(name ="SCOPEID",nullable=true,length=64)
+	public java.lang.String getScopeid(){
+		return this.scopeid;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  范围
+	 */
+	public void setScopeid(java.lang.String scopeid){
+		this.scopeid = scopeid;
+	}
+	/**
+	 *方法: 取得java.lang.Double
+	 *@return: java.lang.Double  出险金额
+	 */
+	@Column(name ="INSURANCEAMOUNT",nullable=true,precision=10,scale=2)
+	public java.lang.Double getInsuranceamount(){
+		return this.insuranceamount;
+	}
+
+	/**
+	 *方法: 设置java.lang.Double
+	 *@param: java.lang.Double  出险金额
+	 */
+	public void setInsuranceamount(java.lang.Double insuranceamount){
+		this.insuranceamount = insuranceamount;
 	}
 }

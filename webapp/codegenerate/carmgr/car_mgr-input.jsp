@@ -20,6 +20,7 @@
 		        },
 		        errorClass: 'validate-error'
 		    });
+		    $('select').comboSelect();
 		})
     </script>
     <div class="col-lg-1 col-md-1 col-sm-1"></div>
@@ -34,10 +35,22 @@
                   
                           <div class="form-group">
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-intype">入库类型:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-intype" name="intype" class="form-control input-sm required" >          <option value="" >请选择</option>        <c:forEach items="${intypeItems}" var="item">          <option value="${item.key}" ${item.key==model.intype? 'selected':''} >${item.value}</option>        </c:forEach>    </select></div>
+                          <div class="col-lg-3 col-md-3 col-sm-3">    
+                          <select id="code-intype" name="intype" class="form-control input-sm required" >          
+                          <option value="" >请选择</option>        
+                          <c:forEach items="${intypeItems}" var="item">          
+                          <option value="${item.key}" ${item.key==model.intype? 'selected':''} >${item.value}</option>        
+                          </c:forEach>    
+                          </select></div>
                           
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-typename">型号名称:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-typename" name="typename" class="form-control input-sm required" >          <option value="" >请选择</option>        <c:forEach items="${typenameItems}" var="item">          <option value="${item.key}" ${item.key==model.typename? 'selected':''} >${item.value}</option>        </c:forEach>    </select></div>
+                          <div class="col-lg-3 col-md-3 col-sm-3">    
+                          <select id="code-typename" name="typename" class="form-control input-sm required" >          
+                          <option value="" >请选择</option>        
+                          <c:forEach items="${typenameItems}" var="item">          
+                          <option value="${item.key}" ${item.key==model.typename? 'selected':''} >${item.value}</option>        
+                          </c:forEach>    
+                          </select></div>
                           
                             </div>
                           <div class="form-group">
@@ -58,7 +71,13 @@
                             </div>
                           <div class="form-group">
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-savefactory">存放仓库:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-savefactory" name="savefactory" class="form-control input-sm required" >          <option value="" >请选择</option>        <c:forEach items="${savefactoryItems}" var="item">          <option value="${item.key}" ${item.key==model.savefactory? 'selected':''} >${item.value}</option>        </c:forEach>    </select></div>
+                          <div class="col-lg-3 col-md-3 col-sm-3">    
+                          <select id="code-savefactory" name="savefactory" class="form-control input-sm required" >          
+                          <option value="" >请选择</option>        
+                          <c:forEach items="${savefactoryItems}" var="item">          
+                          <option value="${item.key}" ${item.key==model.savefactory? 'selected':''} >${item.value}</option>        
+                          </c:forEach>
+                          </select></div>
                           <!-- 
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-cartype">车辆类型:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-cartype" name="cartype" class="form-control input-sm required" >          <option value="" >请选择</option>        <c:forEach items="${cartypeItems}" var="item">          <option value="${item.key}" ${item.key==model.cartype? 'selected':''} >${item.value}</option>        </c:forEach>    </select></div>
@@ -73,17 +92,18 @@
                           
                             </div>
                           <div class="form-group">
-                          <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-buyfex">购置税:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">   <input id="code-buyfex" type="text" name="buyfex" value="${model.buyfex}" class="text form-control input-sm "  ></div>
+                          <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-buyfex">发动机型号:</label>
+                          <div class="col-lg-3 col-md-3 col-sm-3">   <input id="code-engineno" type="text" name="engineno" value="${model.engineno}" class="text form-control input-sm "  ></div>
                           
-                          <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-signnumfee">上牌费:</label>
+                          <!-- 20160729修改，去掉上牌费和初次保险费 -->
+                          <%-- <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-signnumfee">上牌费:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">   <input id="code-signnumfee" type="text" name="signnumfee" value="${model.signnumfee}" class="text form-control input-sm "  ></div>
                           
                             </div>
                           <div class="form-group">
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-firstsecurefee">初次保险费:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">   <input id="code-firstsecurefee" type="text" name="firstsecurefee" value="${model.firstsecurefee}" class="text form-control input-sm "  ></div>
-                          
+                           --%>
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-firstsecuredate">初次保险到期日:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">  <div class="input-append datepicker date">  <span class="add-on">    <input id="code-firstsecuredate" type="text" name="firstsecuredate" value="${model.firstsecuredate}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
                           
@@ -108,14 +128,15 @@
                           
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-carstatus">车辆状态:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">
-                              <input id="code-registereid" type="text" name="carstatus" value="${model.carstatus}" pattern="yyyy-MM-dd" class="text form-control input-sm " readonly >
-			                  <!-- 
-			                  <select id="code-intype" name="carstatus" class="form-control input-sm required" >
+                               <input id="code-registereid" type="text" name="carstatus" value="${model.carstatus}" class="text form-control input-sm " readonly >
+			                  
+<%-- 			                  <select id="code-intype" name="carstatus" class="form-control input-sm required" >
                                       <option value="" >请选择</option>
                                       <option value="已入库" ${'已入库'==model.carstatus? 'selected':''} >已入库</option>
                                       <option value="已出库" ${'已出库'==model.carstatus? 'selected':''} >已出库</option>
-                              </select>
-                                -->
+                                      <option value="已借出" ${'已借出'==model.carstatus? 'selected':''} >已借出</option>
+                              </select> --%>
+                                
                            </div>
                         </div>
                           <div class="form-group">

@@ -20,17 +20,20 @@
 		        },
 		        errorClass: 'validate-error'
 		    });
+		    //入职意向 选项
+		    changeYX();
 		});
-		
 		//入职意向 选项
-		$("#code-tosource").change(function() {
-			var tsstr = $("#code-tosource").val();
+		function changeYX(){
+			var tsstr = $("#code-userstatus-selector").val();
 			if ("已签约"== tsstr || "已离职"==tsstr) {
 			    $("#code-intention").attr("disabled","disabled");
 			} else {
-				$('#areaSelect').attr("disabled","");
+				$("#code-intention").removeAttr("disabled");
 			}
-		});
+		}
+		
+		
     </script>
     <div class="col-lg-1 col-md-1 col-sm-1"></div>
     <!-- start of main -->
@@ -64,10 +67,21 @@
                       </div>
                       <div class="form-group">
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-iscrime">有无犯罪记录:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-iscrime" name="iscrime" class="form-control input-sm required" > <option value="" >请选择</option><option value="有" ${'有'==model.iscrime? 'selected':''} >有</option><option value="无" ${'无'==model.iscrime? 'selected':''} >无</option></select></div>
-                          <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-userstatus">客户状态:</label>
+                          <div class="col-lg-3 col-md-3 col-sm-3">    
+	                          <select id="code-iscrime" name="iscrime" class="form-control input-sm required" > 
+		                          <option value="" >请选择</option>
+		                          <option value="有" ${'有'==model.iscrime? 'selected':''} >有</option>
+		                          <option value="无" ${'无'==model.iscrime? 'selected':''} >无</option>
+	                          </select>
+                          </div>
+                          <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-tosource">客户来源:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">
-                              <select id="code-userstatus" name="userstatus" class="form-control input-sm required" onchange="" > <option value="" >请选择</option><c:forEach items="${userstatusItems}" var="item">          <option value="${item.key}" ${item.key==model.userstatus? 'selected':''} >${item.value}</option>        </c:forEach>    </select>
+                              <select id="code-tosource" name="tosource"   class="form-control input-sm required" onchange="" > 
+	                              <option value="" >请选择</option>
+	                              <c:forEach items="${userstatusItems}" var="item">          
+	                              <option value="${item.key}" ${item.key==model.userstatus? 'selected':''} >${item.value}</option>        
+	                              </c:forEach>    
+                              </select>
                           
                           </div>
                       </div>
@@ -78,8 +92,15 @@
                           <div class="col-lg-3 col-md-3 col-sm-3">   <input id="code-contractplan" type="text" name="contractplan" value="${model.contractplan}" class="text form-control input-sm required"  ></div>
                       </div>
                       <div class="form-group">
-                          <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-tosource">客户来源:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-tosource" name="tosource" class="form-control input-sm required" >          <option value="" >请选择</option>        <c:forEach items="${tosourceItems}" var="item">          <option value="${item.key}" ${item.key==model.tosource? 'selected':''} >${item.value}</option>        </c:forEach>    </select></div>
+                          <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-userstatus">客户状态:</label>
+                          <div class="col-lg-3 col-md-3 col-sm-3">    
+                          <select id="code-userstatus-selector" name="userstatus" class="form-control input-sm required" onchange="changeYX()">          
+                          <option value="" >请选择</option>   
+                          <c:forEach items="${tosourceItems}" var="item">          
+                          <option value="${item.key}" ${item.key==model.tosource? 'selected':''} >${item.value}</option>        
+                          </c:forEach>    
+                          </select>
+                          </div>
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" >入职意向:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-intention" name="intention" class="form-control input-sm "  >          <option value="" >请选择</option>        <c:forEach items="${intentionItems}" var="item">          <option value="${item.key}" ${item.key==model.intention? 'selected':''} >${item.value}</option>        </c:forEach>    </select></div>
                       </div>
@@ -111,7 +132,7 @@
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-customertobe">客户归属:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">    <select id="code-customertobe" name="customertobe" class="form-control input-sm required" >          <option value="" >请选择</option>        <c:forEach items="${customertobeItems}" var="item">          <option value="${item.key}" ${item.key==model.customertobe? 'selected':''} >${item.value}</option>        </c:forEach>    </select></div>
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-createdatetime">新建日期:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">  <div class="input-append datepicker date">  <span class="add-on">    <input id="code-createdatetime" type="text" name="createdatetime" value="${model.createdatetime}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span></div></div>
+                          <div class="col-lg-3 col-md-3 col-sm-3">  <div class="input-append datepicker date">  <span class="add-on">    <input id="code-createdatetime" type="text" name="createdatetime" value="<fmt:formatDate value="${model.createdatetime}" pattern="yyyy-MM-dd" type="date" dateStyle="long" />" placeholder="点击选择" class="form-control input-sm required" readonly >  </span></div></div>
                        </div>
                        <div class="form-group">
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-device">设备型号:</label>

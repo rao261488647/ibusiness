@@ -21,10 +21,6 @@ import javax.persistence.SequenceGenerator;
 @Table(name = "IB_DORMITORY")
 public class DormitoryEntity implements java.io.Serializable {
     private static final long serialVersionUID = 0L;
-	/**范围*/
-	private java.lang.String scopeid;
-	/**UUID主键*/
-	private java.lang.String id;
 	/**姓名*/
 	private java.lang.String name;
 	/**联系方式*/
@@ -43,41 +39,11 @@ public class DormitoryEntity implements java.io.Serializable {
 	private java.lang.String useflag;
 	/**搬离日期*/
 	private java.util.Date departuredate;
+	/**UUID主键*/
+	private java.lang.String id;
+	/**范围*/
+	private java.lang.String scopeid;
 	
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  范围
-	 */
-	@Column(name ="SCOPEID",nullable=true,length=64)
-	public java.lang.String getScopeid(){
-		return this.scopeid;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  范围
-	 */
-	public void setScopeid(java.lang.String scopeid){
-		this.scopeid = scopeid;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  UUID主键
-	 */
-	
-	@Id
-	@Column(name ="ID",nullable=false,length=64)
-	public java.lang.String getId(){
-		return this.id;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  UUID主键
-	 */
-	public void setId(java.lang.String id){
-		this.id = id;
-	}
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  姓名
@@ -221,5 +187,39 @@ public class DormitoryEntity implements java.io.Serializable {
 	 */
 	public void setDeparturedate(java.util.Date departuredate){
 		this.departuredate = departuredate;
+	}
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  UUID主键
+	 */
+	
+	@Id
+	@Column(name ="ID",nullable=false,length=64)
+	public java.lang.String getId(){
+		return this.id;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  UUID主键
+	 */
+	public void setId(java.lang.String id){
+		this.id = id;
+	}
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  范围
+	 */
+	@Column(name ="SCOPEID",nullable=true,length=64)
+	public java.lang.String getScopeid(){
+		return this.scopeid;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  范围
+	 */
+	public void setScopeid(java.lang.String scopeid){
+		this.scopeid = scopeid;
 	}
 }

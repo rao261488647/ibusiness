@@ -100,12 +100,12 @@
 						            <td>${item.name}</td>
 						            <td>${item.callphone}</td>
 						            <td>${item.eid}</td>
-						            <td>${item.entrydate}</td>
-						            <td>${item.checkintime}</td>
+						            <td><fmt:formatDate value="${item.entrydate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
+						            <td><fmt:formatDate value="${item.checkintime}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
 						            <td>${item.adderss}</td>
 						            <td>${item.roomno}</td>
 						            <td>${item.useflag}</td>
-						            <td>${item.departuredate}</td>
+						            <td><fmt:formatDate value="${item.departuredate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
 					        <td>
 					          <a href="dormitory-input.do?id=${item.id}" class="a-update" data-target="#modalInput" data-toggle="modal" data-database="true"><span class="glyphicon glyphicon-pencil"></span></a>
 					        </td>

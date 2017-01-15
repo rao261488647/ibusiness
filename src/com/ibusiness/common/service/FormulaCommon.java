@@ -38,6 +38,9 @@ public class FormulaCommon {
         // 反射获取对象中所有方法名
         for (Field field : entity.getClass().getDeclaredFields()) {
             String tableColumn = field.getName();
+            if(tableColumn.equals("serialVersionUID")){
+            	break;
+            }
             // 取得get方法
             Object objvalue = getMethodValue(entity, "get" + StringUtils.capitalize(field.getName()));
             if ((null == objvalue || CommonUtils.isNull(objvalue.toString())) && map.containsKey(tableColumn.toUpperCase())) {

@@ -29,7 +29,8 @@
           		,'filter_LIKES_carnum': '${param.filter_LIKES_carnum}'
            		,'filter_GED_contractvalidday': '${param.filter_GED_contractvalidday}'
             	,'filter_LED_contractvalidday': '${param.filter_LED_contractvalidday}'
-            		
+            	,'filter_GED_dimissiondate': '${param.filter_GED_dimissiondate}'
+                ,'filter_LED_dimissiondate': '${param.filter_LED_dimissiondate}'
 		    },
 			selectedItemClass: 'selectedItem',
 			gridFormId: 'gridForm',
@@ -98,8 +99,10 @@
 		                <input type="text" id="code_table_salesman" name="filter_LIKES_salesman" value="${param.filter_LIKES_salesman}">
 		                <label >备注:</label>
 		                <input type="text" id="code_table_remarks" name="filter_LIKES_remarks" value="${param.filter_LIKES_remarks}">
-		                <label >车辆类型:</label>
-		                <input type="text" id="code_table_carname" name="filter_LIKES_carname" value="${param.filter_LIKES_carname}">
+		                <label >车辆类型</label>
+                                <select id="code-carname" name="filter_LIKES_carname" class="form-control input-sm required" >          <option value="" >请选择</option>        <c:forEach items="${typenameItems}" var="item">          <option value="${item.key}" ${item.key==param.filter_LIKES_carname? 'selected':''} >${item.value}</option>        </c:forEach>    </select>
+								</label>
+		                <%-- <input type="text" id="code_table_carname" name="filter_LIKES_carname" value="${param.filter_LIKES_carname}"> --%>
 		                <label >车牌号码:</label>
 		                <input type="text" id="code_table_carnum" name="filter_LIKES_carnum" value="${param.filter_LIKES_carnum}">
 		                
@@ -133,7 +136,16 @@
 			                <label class="col-lg-4 col-md-4 col-sm-4 control-label" >到:</label>
 			                <div class="col-lg-8 col-md-8 col-sm-8">  <div class="input-append datepicker date">  <span class="add-on">    <input type="text" name="filter_LED_contractvalidday" value="${param.filter_LED_contractvalidday}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
 	                    </div>
-					    
+					</div>
+					<div class="form-group col-lg-12 col-md-12 col-sm-12">
+					<div class="form-group col-lg-3 col-md-3 col-sm-3">
+					        <label class="col-lg-4 col-md-4 col-sm-4 control-label" >解约日期:</label>
+					        <div class="col-lg-8 col-md-8 col-sm-8">  <div class="input-append datepicker date">  <span class="add-on">    <input type="text" name="filter_GED_dimissiondate" value="${param.filter_GED_dimissiondate}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
+		            </div>
+		            <div class="form-group col-lg-3 col-md-3 col-sm-3">
+			            <label class="col-lg-4 col-md-4 col-sm-4 control-label" >到:</label>
+			            <div class="col-lg-8 col-md-8 col-sm-8">  <div class="input-append datepicker date">  <span class="add-on">    <input type="text" name="filter_LED_dimissiondate" value="${param.filter_LED_dimissiondate}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
+	                </div>
 					</div>
 				 </form>
 			  </div>

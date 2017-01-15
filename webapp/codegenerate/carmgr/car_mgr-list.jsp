@@ -65,16 +65,31 @@
 		                <label for="code_table_carnum">车牌号:</label>
 		                <input type="text" id="code_table_carnum" name="filter_LIKES_carnum" value="${param.filter_LIKES_carnum}">
 		                <label for="code_table_typename">型号名称:</label>
-		                <input type="text" id="code_table_typename" name="filter_LIKES_typename" value="${param.filter_LIKES_typename}">
+		                <select id="code_table_typename" name="filter_LIKES_typename" class="form-control input-sm required" >          
+                          <option value="" >请选择</option>        
+                          <c:forEach items="${typenameItems}" var="item">          
+                          <option value="${item.key}" ${item.key==param.filter_LIKES_typename? 'selected':''} >${item.value}</option>        
+                          </c:forEach>
+                          </select>
 		                <label for="code_table_intype">入库类型:</label>
-		                <input type="text" id="code_table_intype" name="filter_LIKES_intype" value="${param.filter_LIKES_intype}">
+		                <select id="code_table_intype" name="filter_LIKES_intype" class="form-control input-sm required" >          
+                          <option value="" >请选择</option>        
+                          <c:forEach items="${intypeItems}" var="item">          
+                          <option value="${item.key}" ${item.key==param.filter_LIKES_intype? 'selected':''} >${item.value}</option>        
+                          </c:forEach>
+                          </select>
 		                <label for="code_table_savefactory">存放仓库:</label>
-		                <input type="text" id="code_table_savefactory" name="filter_LIKES_savefactory" value="${param.filter_LIKES_savefactory}">
+		                <select id="code_table_savefactory" name="filter_LIKES_savefactory" class="form-control input-sm required" >          
+                          <option value="" >请选择</option>        
+                          <c:forEach items="${savefactoryItems}" var="item">          
+                          <option value="${item.key}" ${item.key==param.filter_LIKES_savefactory? 'selected':''} >${item.value}</option>        
+                          </c:forEach>
+                          </select>
+		                <%-- <input type="text" id="code_table_savefactory" name="filter_LIKES_savefactory" value="${param.filter_LIKES_savefactory}"> --%>
 					    <button class="btn btn-primary btn-sm" onclick="document.cgForm.submit()"><span class="glyphicon glyphicon-search"></span>查询</button>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-5 col-md-5 col-sm-5">
 	                        <label >备注:</label>
 			                <input type="text" id="code_table_remark" name="filter_LIKES_remark" value="${param.filter_LIKES_remark}">
-		                
 		                    <label for="code_table_carstatus">车辆状态:</label>
 		                    <select id="code-intype" name="filter_LIKES_carstatus" class="form-control input-sm required" >
                                 <option value="" >请选择</option><option value="在库" ${'在库'==param.filter_LIKES_carstatus? 'selected':''} >在库</option><option value="已出库" ${'已出库'==param.filter_LIKES_carstatus? 'selected':''} >已出库</option>
@@ -87,7 +102,10 @@
 			                <label class="col-lg-1 col-md-1 col-sm-1 control-label" >到:</label>
 			                <div class="col-lg-4 col-md-4 col-sm-4">  <div class="input-append datepicker date">  <span class="add-on">    <input type="text" name="filter_LED_infactorydate" value="${param.filter_LED_infactorydate}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
 	                    </div>
-	                    
+	                    <div class="col-lg-5 col-md-5 col-sm-5">
+	                        <label >发动机号:</label>
+			                <input type="text" id="code_table_engineno" name="filter_LIKES_engineno" value="${param.filter_LIKES_engineno}">
+                        </div>
 					</div>
 				 </form>
 			  </div>
@@ -117,15 +135,18 @@
 			      <thead>
 				      <tr>
 				        <th width="30" class="m-table-check"><input type="checkbox" name="checkAll" onchange="toggleSelectedItems(this.checked)"></th>
-					                <th >型号名称</th>
 					                <th >车牌号</th>
+					                <th >型号名称</th>
 					                <th >车架号</th>
 					                <th >入库类型</th>
-					                <th >车辆出厂日期</th>
+					                <th >发动机号</th>
+					                <!-- <th >车辆出厂日期</th> -->
 					                <th >入库日期</th>
 					                <th >存放仓库</th>
 					                <th >车辆状态</th>
 					                <th >指标公司</th>
+					                <!-- <th >是否外借</th> -->
+					                <th >是否维修</th>
 					                <th >备注</th>
 				        <th width="30">&nbsp;</th>
 				      </tr>
@@ -134,15 +155,18 @@
 					      <c:forEach items="${page.result}" var="item" varStatus="status">  
 					      <tr class="${status.index%2==1? 'active':''}">
 					        <td><input type="checkbox" class="selectedItem a-check" name="selectedItem" value="${item.id}"></td>
-						            <td>${item.typename}</td>
 						            <td>${item.carnum}</td>
+						            <td>${fn:substring(item.typename, 0, 5)}</td>
 						            <td>${item.carframenum}</td>
 						            <td>${item.intype}</td>
-						            <td><fmt:formatDate value="${item.caroutfaydate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
+						            <td>${item.engineno}</td>
+						            <%-- <td><fmt:formatDate value="${item.caroutfaydate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td> --%>
 						            <td><fmt:formatDate value="${item.infactorydate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
 						            <td>${item.savefactory}</td>
 						            <td>${item.carstatus}</td>
 						            <td>${item.targetcompany}</td>
+						            <%-- <td>${item.isloan}</td> --%>
+						            <td>${item.ismaintain}</td>
 						            <td>${item.remark}</td>
 					        <td>
 					          <a href="car_mgr-input.do?id=${item.id}" class="a-update" data-target="#modalInput" data-toggle="modal" data-database="true"><span class="glyphicon glyphicon-pencil"></span></a>

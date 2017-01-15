@@ -146,7 +146,7 @@ public class DormitoryController {
         // excel文件名
         tableModel.setExcelName("宿舍管理页面"+CommonUtils.getInstance().getCurrentDateTime());
         // 列名
-        tableModel.addHeaders("scopeid", "id", "name", "callphone", "eid", "entrydate", "checkintime", "adderss", "roomno", "useflag", "departuredate");
+        tableModel.addHeaders("name", "callphone", "eid", "entrydate", "checkintime", "adderss", "roomno", "useflag", "departuredate", "id", "scopeid");
         tableModel.setTableName("IB_DORMITORY");
         tableModel.setData(beans);
         try {
@@ -166,7 +166,7 @@ public class DormitoryController {
             // 
             TableModel tableModel = new TableModel();
             // 列名
-            tableModel.addHeaders("scopeid", "id", "name", "callphone", "eid", "entrydate", "checkintime", "adderss", "roomno", "useflag", "departuredate");
+            tableModel.addHeaders("name", "callphone", "eid", "entrydate", "checkintime", "adderss", "roomno", "useflag", "departuredate", "id", "scopeid");
             // 导入
             new ExcelCommon().uploadExcel(file, tableModel, "com.codegenerate.hrmannager.entity.DormitoryEntity");
         } catch (Exception e) {

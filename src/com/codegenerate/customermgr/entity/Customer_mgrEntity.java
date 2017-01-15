@@ -21,6 +21,9 @@ import javax.persistence.SequenceGenerator;
 @Table(name = "IB_CUSTOMER_MGR")
 public class Customer_mgrEntity implements java.io.Serializable {
     private static final long serialVersionUID = 0L;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	/**客户来源*/
 	private java.lang.String tosource;
 	/**客户姓名*/
@@ -77,6 +80,10 @@ public class Customer_mgrEntity implements java.io.Serializable {
 	private java.lang.String contractplan;
 	/**入职意向*/
 	private java.lang.String intention;
+	
+	private String issign; // 是否签约
+	private java.util.Date signdate; // 签约日期
+	private java.lang.String signhandsel; // 签约押金
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -527,5 +534,26 @@ public class Customer_mgrEntity implements java.io.Serializable {
 	 */
 	public void setIntention(java.lang.String intention){
 		this.intention = intention;
+	}
+	public String getIssign() {
+		return issign;
+	}
+	@Column(name ="ISSIGN",nullable=true)
+	public void setIssign(String issign) {
+		this.issign = issign;
+	}
+	public java.util.Date getSigndate() {
+		return signdate;
+	}
+	@Column(name ="SIGNDATE",nullable=true)
+	public void setSigndate(java.util.Date signdate) {
+		this.signdate = signdate;
+	}
+	public java.lang.String getSignhandsel() {
+		return signhandsel;
+	}
+	@Column(name ="SIGNHANDSEL",nullable=true)
+	public void setSignhandsel(java.lang.String signhandsel) {
+		this.signhandsel = signhandsel;
 	}
 }

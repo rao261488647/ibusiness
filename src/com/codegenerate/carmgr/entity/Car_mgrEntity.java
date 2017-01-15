@@ -66,6 +66,14 @@ public class Car_mgrEntity implements java.io.Serializable {
 	/**上传图片*/
 	private java.lang.String uploadprcture;
 	
+	/**发动机号码*/
+	private java.lang.String engineno;
+	
+	/**是否借出*/
+	private java.lang.String isloan;
+	/**是否维修*/
+	private java.lang.String ismaintain;
+	
 	/**
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  范围
@@ -420,4 +428,29 @@ public class Car_mgrEntity implements java.io.Serializable {
 	public void setUploadprcture(java.lang.String uploadprcture){
 		this.uploadprcture = uploadprcture;
 	}
+
+	public java.lang.String getEngineno() {
+		return engineno;
+	}
+	@Column(name ="ENGINENO",nullable=true,length=128)
+	public void setEngineno(java.lang.String engineno) {
+		this.engineno = engineno;
+	}
+
+	public java.lang.String getIsloan() {
+		return isloan;
+	}
+	@Column(name ="ISLOAN",nullable=true,length=128)
+	public void setIsloan(java.lang.String isloan) {
+		this.isloan = isloan;
+	}
+
+	public java.lang.String getIsmaintain() {
+		return ismaintain;
+	}
+	@Column(name ="ISMAINTAIN",nullable=true,length=128)
+	public void setIsmaintain(java.lang.String ismaintain) {
+		this.ismaintain = ismaintain;
+	}
+	
 }

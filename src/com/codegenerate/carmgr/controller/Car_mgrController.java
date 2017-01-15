@@ -60,9 +60,28 @@ public class Car_mgrController {
         List<PropertyFilter> propertyFilters = PropertyFilter.buildFromMap(parameterMap);
         // 添加当前公司(用户范围)ID查询
     	propertyFilters = CommonBusiness.getInstance().editPFByScopeId(propertyFilters);
+    	page.setOrderBy("infactorydate");
+    	page.setOrder("desc");
         // 根据条件查询数据
         page = car_mgrService.pagedQuery(page, propertyFilters);
         model.addAttribute("page", page);
+        // 入库类型
+        Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> intypeFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");List<com.ibusiness.common.model.ConfSelectItem> intypeItems = (List<com.ibusiness.common.model.ConfSelectItem>) CommonUtils.getListFromJson(intypeFTCMap.get("INTYPE").getConfSelectInfo(), com.ibusiness.common.model.ConfSelectItem.class);model.addAttribute("intypeItems", intypeItems);
+        // 型号名称
+        Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> typenameFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");JSONObject typenameJsonObj = JSONObject.fromObject(typenameFTCMap.get("TYPENAME").getConfSelectInfo());String typenameSql = typenameJsonObj.getString("sql");List<Map<String,Object>> typenameList = com.ibusiness.core.spring.ApplicationContextHelper.getBean(com.ibusiness.common.service.CommonBaseService.class).getJdbcTemplate().queryForList(typenameSql);List<ConfSelectItem> typenameItems = new java.util.ArrayList<ConfSelectItem>();for (Map<String,Object> mapBean : typenameList) {    ConfSelectItem confSelectItem = new ConfSelectItem();    confSelectItem.setKey(mapBean.get("vKey").toString());    confSelectItem.setValue(mapBean.get("vValue").toString());    typenameItems.add(confSelectItem);}model.addAttribute("typenameItems", typenameItems);
+        // 存放仓库
+        Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> savefactoryFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");
+        JSONObject savefactoryJsonObj = JSONObject.fromObject(savefactoryFTCMap.get("SAVEFACTORY").getConfSelectInfo());
+        String savefactorySql = savefactoryJsonObj.getString("sql");
+        List<Map<String,Object>> savefactoryList = com.ibusiness.core.spring.ApplicationContextHelper.getBean(com.ibusiness.common.service.CommonBaseService.class).getJdbcTemplate().queryForList(savefactorySql);
+        List<ConfSelectItem> savefactoryItems = new java.util.ArrayList<ConfSelectItem>();
+        for (Map<String,Object> mapBean : savefactoryList) {
+        	ConfSelectItem confSelectItem = new ConfSelectItem();
+        	confSelectItem.setKey(mapBean.get("vKey").toString());
+        	confSelectItem.setValue(mapBean.get("vValue").toString());
+        	savefactoryItems.add(confSelectItem);
+        }
+        model.addAttribute("savefactoryItems", savefactoryItems);
         // 返回JSP
         return "codegenerate/carmgr/car_mgr-list.jsp";
     }
@@ -94,7 +113,9 @@ public class Car_mgrController {
                 Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> savefactoryFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");JSONObject savefactoryJsonObj = JSONObject.fromObject(savefactoryFTCMap.get("SAVEFACTORY").getConfSelectInfo());String savefactorySql = savefactoryJsonObj.getString("sql");List<Map<String,Object>> savefactoryList = com.ibusiness.core.spring.ApplicationContextHelper.getBean(com.ibusiness.common.service.CommonBaseService.class).getJdbcTemplate().queryForList(savefactorySql);List<ConfSelectItem> savefactoryItems = new java.util.ArrayList<ConfSelectItem>();for (Map<String,Object> mapBean : savefactoryList) {    ConfSelectItem confSelectItem = new ConfSelectItem();    confSelectItem.setKey(mapBean.get("vKey").toString());    confSelectItem.setValue(mapBean.get("vValue").toString());    savefactoryItems.add(confSelectItem);}model.addAttribute("savefactoryItems", savefactoryItems);
                 Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> cartypeFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");List<com.ibusiness.common.model.ConfSelectItem> cartypeItems = (List<com.ibusiness.common.model.ConfSelectItem>) CommonUtils.getListFromJson(cartypeFTCMap.get("CARTYPE").getConfSelectInfo(), com.ibusiness.common.model.ConfSelectItem.class);model.addAttribute("cartypeItems", cartypeItems);
                 Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> targetcompanyFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");JSONObject targetcompanyJsonObj = JSONObject.fromObject(targetcompanyFTCMap.get("TARGETCOMPANY").getConfSelectInfo());String targetcompanySql = targetcompanyJsonObj.getString("sql");List<Map<String,Object>> targetcompanyList = com.ibusiness.core.spring.ApplicationContextHelper.getBean(com.ibusiness.common.service.CommonBaseService.class).getJdbcTemplate().queryForList(targetcompanySql);List<ConfSelectItem> targetcompanyItems = new java.util.ArrayList<ConfSelectItem>();for (Map<String,Object> mapBean : targetcompanyList) {    ConfSelectItem confSelectItem = new ConfSelectItem();    confSelectItem.setKey(mapBean.get("vKey").toString());    confSelectItem.setValue(mapBean.get("vValue").toString());    targetcompanyItems.add(confSelectItem);}model.addAttribute("targetcompanyItems", targetcompanyItems);
-                Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> carcolorFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");List<com.ibusiness.common.model.ConfSelectItem> carcolorItems = (List<com.ibusiness.common.model.ConfSelectItem>) CommonUtils.getListFromJson(carcolorFTCMap.get("CARCOLOR").getConfSelectInfo(), com.ibusiness.common.model.ConfSelectItem.class);model.addAttribute("carcolorItems", carcolorItems);
+                Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> carcolorFTCMap= CommonBusiness.getInstance().getFormTableColumnMap("IB_CAR_MGR", "carmanage");
+                List<com.ibusiness.common.model.ConfSelectItem> carcolorItems = (List<com.ibusiness.common.model.ConfSelectItem>) CommonUtils.getListFromJson(carcolorFTCMap.get("CARCOLOR").getConfSelectInfo(), com.ibusiness.common.model.ConfSelectItem.class);
+                model.addAttribute("carcolorItems", carcolorItems);
         return "codegenerate/carmgr/car_mgr-input.jsp";
     }
 
@@ -157,7 +178,7 @@ public class Car_mgrController {
         // excel文件名
         tableModel.setExcelName("车辆库存管理页面"+CommonUtils.getInstance().getCurrentDateTime());
         // 列名
-        tableModel.addHeaders("scopeid", "id", "intype", "typename", "carnum", "carframenum", "caroutfaydate", "signdate", "savefactory", "cartype", "targetcompany", "carcolor", "buyfex", "signnumfee", "firstsecurefee", "firstsecuredate", "registereid", "yearcheckdate", "infactorydate", "carstatus", "remark", "uploadprcture");
+        tableModel.addHeaders("scopeid", "id", "intype", "typename", "carnum", "carframenum", "caroutfaydate", "signdate", "savefactory", "cartype", "targetcompany", "carcolor", "buyfex", "signnumfee", "firstsecurefee", "firstsecuredate", "registereid", "yearcheckdate", "infactorydate", "carstatus", "remark", "uploadprcture","isloan", "ismaintain");
         tableModel.setTableName("IB_CAR_MGR");
         tableModel.setData(beans);
         try {

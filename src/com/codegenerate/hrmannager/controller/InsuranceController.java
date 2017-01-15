@@ -148,7 +148,7 @@ public class InsuranceController {
         // excel文件名
         tableModel.setExcelName("出险管理页面"+CommonUtils.getInstance().getCurrentDateTime());
         // 列名
-        tableModel.addHeaders("scopeid", "id", "drivername", "driverphone", "carname", "carnum", "eventdate", "responsibility", "mainttime", "carflag", "newcarname", "newcarnum");
+        tableModel.addHeaders("drivername", "driverphone", "carname", "carnum", "eventdate", "responsibility", "mainttime", "carflag", "newcarname", "newcarnum", "id", "scopeid", "insuranceamount");
         tableModel.setTableName("IB_INSURANCE");
         tableModel.setData(beans);
         try {
@@ -168,7 +168,7 @@ public class InsuranceController {
             // 
             TableModel tableModel = new TableModel();
             // 列名
-            tableModel.addHeaders("scopeid", "id", "drivername", "driverphone", "carname", "carnum", "eventdate", "responsibility", "mainttime", "carflag", "newcarname", "newcarnum");
+            tableModel.addHeaders("drivername", "driverphone", "carname", "carnum", "eventdate", "responsibility", "mainttime", "carflag", "newcarname", "newcarnum", "id", "scopeid", "insuranceamount");
             // 导入
             new ExcelCommon().uploadExcel(file, tableModel, "com.codegenerate.hrmannager.entity.InsuranceEntity");
         } catch (Exception e) {

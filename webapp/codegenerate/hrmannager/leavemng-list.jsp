@@ -97,8 +97,8 @@
 						            <td>${item.drivername}</td>
 						            <td>${item.driverphone}</td>
 						            <td>${item.dayss}</td>
-						            <td>${item.begindate}</td>
-						            <td>${item.enddate}</td>
+						            <td><fmt:formatDate value="${item.begindate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
+						            <td><fmt:formatDate value="${item.enddate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
 						            <td>${item.carflag}</td>
 					        <td>
 					          <a href="leavemng-input.do?id=${item.id}" class="a-update" data-target="#modalInput" data-toggle="modal" data-database="true"><span class="glyphicon glyphicon-pencil"></span></a>

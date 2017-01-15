@@ -65,50 +65,78 @@
 				  <form name="cgForm" method="post" action="customer_mgr-list.do" class="form-inline">
 				      <input type="hidden" id="pageNo" name="pageNo" value="${page.pageNo}">
 	                  <input type="hidden" id="pageSize" name="pageSize" value="${page.pageSize}">
-				    <div class="form-group">
-				       <div class="col-lg-12 col-md-12 col-sm-12 " >
-				       <!-- 
-					       <div class="form-group col-lg-3 col-md-3 col-sm-3">
-					            <label class="col-lg-4 col-md-4 col-sm-4 control-label" >客户分类:</label>
-		                        <div class="col-lg-8 col-md-8 col-sm-8"> 
-		                         <select id="code-customertype" name="filter_LIKES_customertype" class="form-control input-sm required" >          <option value="" >请选择</option>  
-	                                <option value="单位" ${'单位'==param.filter_LIKES_customertype? 'selected':''} >单位</option>
-	                                <option value="个人" ${'个人'==param.filter_LIKES_customertype? 'selected':''} >个人</option> 
-		                            </select>
-		                        </div>
-		                    </div>
-		                     -->
-	                        <div class="form-group col-lg-3 col-md-3 col-sm-3">
-						        <label class="col-lg-4 col-md-4 col-sm-4 control-label" >开始时间:</label>
-						        <div class="col-lg-8 col-md-8 col-sm-8">  <div class="input-append datepicker date">  <span class="add-on">    <input id="code-eventdate" type="text" name="filter_GED_createdatetime" value="${param.filter_GED_createdatetime}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
-			                </div>
-			                <div class="form-group col-lg-3 col-md-3 col-sm-3">
-				                <label class="col-lg-4 col-md-4 col-sm-4 control-label" >结束时间:</label>
-				                <div class="col-lg-8 col-md-8 col-sm-8">  <div class="input-append datepicker date">  <span class="add-on">    <input id="code-eventdate" type="text" name="filter_LED_createdatetime" value="${param.filter_LED_createdatetime}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
-		                    </div>
-		                    
-		                    <button class="btn btn-primary btn-sm" onclick="document.cgForm.submit()"><span class="glyphicon glyphicon-search"></span>查询</button>
-	                    </div>
-	                    <div class="col-lg-12 col-md-12 col-sm-12 " >  
-	                    <!-- 
-	                        <label class="col-lg-1 col-md-1 col-sm-1 control-label" >单位:</label>
-                            <input class="col-lg-1 col-md-1 col-sm-1" type="text" id="code_table_unitname" name="filter_LIKES_unitname" value="${param.filter_LIKES_unitname}">
-				          -->
-			                <label class="col-lg-1 col-md-1 col-sm-1 control-label">客户姓名:</label>
-			                <input class="col-lg-1 col-md-1 col-sm-1" type="text" id="code_table_customername" name="filter_LIKES_customername" value="${param.filter_LIKES_customername}">
-				            
-				            <label class="col-lg-1 col-md-1 col-sm-1 control-label">业务员:</label>
-			                <input class="col-lg-1 col-md-1 col-sm-1" type="text" id="code_table_salesman" name="filter_LIKES_salesman" value="${param.filter_LIKES_salesman}">
-				            <label class="col-lg-1 col-md-1 col-sm-1 control-label">备注:</label>
-			                <input class="col-lg-1 col-md-1 col-sm-1" type="text" id="code_table_remarks" name="filter_LIKES_remarks" value="${param.filter_LIKES_remarks}">
-					        <label class="col-lg-1 col-md-1 col-sm-1 control-label">客户电话:</label>
-			                <input class="col-lg-2 col-md-2 col-sm-2" type="text" id="code_table_customercell" name="filter_LIKES_customercell" value="${param.filter_LIKES_customercell}">
-					        
-					        <div class="col-lg-1 col-md-1 col-sm-1" ></div>
-					        
-				         </div>   
-					</div>
-				 </form>
+	                  	<div class="row">
+		                  <div class="col-md-3">
+	                          <label class="labelSelect">客户姓名：
+	                          	<input type="text" id="code_table_customername" name="filter_LIKES_customername" value="${param.filter_LIKES_customername}">
+	                          </label>
+	                      </div>
+	                      <div class="col-md-2">
+	                          <label class="labelSelect">客户状态:
+							    	<select id="code-tosource" name="filter_LIKES_tosource" class="form-control input-sm required" >          
+							    	   <option value="" >请选择</option>  
+			                           <option value="电话邀约" ${'电话邀约'==param.filter_LIKES_tosource? 'selected':''} >电话邀约</option>
+			                           <option value="司机来电" ${'司机来电'==param.filter_LIKES_tosource? 'selected':''} >司机来电</option>
+			                           <option value="司机到场" ${'司机到场'==param.filter_LIKES_tosource? 'selected':''} >司机到场</option>
+			                           <option value="已签约" ${'已签约'==param.filter_LIKES_tosource? 'selected':''} >已签约</option>
+			                           <option value="已离职" ${'已离职'==param.filter_LIKES_tosource? 'selected':''} >已离职</option> 
+			                        </select>
+	                          </label>
+	                      </div>
+	                      <div class="col-md-2">
+	                          <label class="labelSelect">客户来源:
+							    	<select id="code-userstatus" name="filter_LIKES_userstatus" class="form-control input-sm required" >          
+							    	   <option value="" >请选择</option>  
+			                           <option value="网络" ${'网络'==param.filter_LIKES_userstatus? 'selected':''} >网络</option>
+			                           <option value="地面广告" ${'地面广告'==param.filter_LIKES_userstatus? 'selected':''} >地面广告</option>
+			                           <option value="司机介绍" ${'司机介绍'==param.filter_LIKES_userstatus? 'selected':''} >司机介绍</option>
+			                           <option value="业务邀约" ${'已签约'==param.filter_LIKES_userstatus? 'selected':''} >业务邀约</option>
+			                           <option value="其他" ${'其他'==param.filter_LIKES_userstatus? 'selected':''} >其他</option> 
+			                        </select>
+	                          </label>
+	                      </div>
+	                      <div class="col-md-5">
+	                      </div>
+	                  </div>
+	                  <div class="row">
+		                  <div class="col-md-3">
+	                          <label class="labelSelect">业&nbsp;&nbsp;务&nbsp;&nbsp;员：
+	                          	<input type="text" id="code_table_salesman" name="filter_LIKES_salesman" value="${param.filter_LIKES_salesman}">
+	                          </label>
+	                      </div>
+	                      <div class="col-md-2">
+	                          <label class="labelSelect">备注:
+	                          	<input type="text" id="code_table_remarks" name="filter_LIKES_remarks" value="${param.filter_LIKES_remarks}">
+	                          </label>
+	                      </div>
+	                      <div class="col-md-3">
+	                          <label class="labelSelect">客户电话:
+	                          	<input type="text" id="code_table_customercell" name="filter_LIKES_customercell" value="${param.filter_LIKES_customercell}">
+	                          </label>
+	                      </div>
+	                  </div>
+	                  <div class="row">
+	                  	<div class="col-md-4">
+	                          <div class="datepicker date">  
+		                  		<label class="labelSelect">开始日期：</label>
+	                            <span class="add-on">    
+		                           	<input id="code-eventdate" type="text" name="filter_GED_createdatetime" value="${param.filter_GED_createdatetime}" placeholder="点击选择" class="form-control input-sm required" readonly >  
+		                       	</span>  
+	                          </div>
+                        </div>
+	                  </div>
+	                  <div class="row">
+	                      <div class="col-md-4">
+	                          <div class="input-append datepicker date">  
+		                       <label class="labelSelect">结束日期：</label>
+	                           <span class="add-on">    
+		                        	<input id="code-eventdate" type="text" name="filter_LED_createdatetime" value="${param.filter_LED_createdatetime}" placeholder="点击选择" class="form-control input-sm required" readonly >  
+		                        </span> 
+	                          </div>
+	                      </div>
+	                  </div>
+                    <button class="btn btn-primary btn-sm" onclick="document.cgForm.submit()"><span class="glyphicon glyphicon-search"></span>查询</button>
+                    <input class="btn btn-primary btn-sm" type="reset" value="重置">
 			  </div>
 		  </div>
 	   <div class="panel-heading"><h4 class="panel-title glyphicon glyphicon-paperclip">客户管理列表</h4></div>
@@ -195,4 +223,5 @@
 	<!-- end of main -->
 	</div>
   </body>
+
 </html>

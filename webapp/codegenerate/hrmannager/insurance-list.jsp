@@ -91,6 +91,7 @@
 					                <th class="sorting">替换车使用</th>
 					                <th class="sorting">替换车型</th>
 					                <th class="sorting">替换车牌</th>
+					                <th class="sorting">出险金额</th>
 				        <th width="30">&nbsp;</th>
 				      </tr>
 				    </thead>
@@ -102,12 +103,13 @@
 						            <td>${item.driverphone}</td>
 						            <td>${item.carname}</td>
 						            <td>${item.carnum}</td>
-						            <td>${item.eventdate}</td>
+						            <td><fmt:formatDate value="${item.eventdate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
 						            <td>${item.responsibility}</td>
 						            <td>${item.mainttime}</td>
 						            <td>${item.carflag}</td>
 						            <td>${item.newcarname}</td>
 						            <td>${item.newcarnum}</td>
+						            <td>${item.insuranceamount}</td>
 					        <td>
 					          <a href="insurance-input.do?id=${item.id}" class="a-update" data-target="#modalInput" data-toggle="modal" data-database="true"><span class="glyphicon glyphicon-pencil"></span></a>
 					        </td>

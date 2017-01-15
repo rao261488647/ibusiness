@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import com.ibusiness.base.group.dao.OrgCompanyDao;
 import com.ibusiness.base.group.dao.OrgDepartmentDao;
 import com.ibusiness.base.group.entity.OrgCompany;
@@ -15,6 +17,7 @@ import com.ibusiness.base.menu.entity.Menu;
 import com.ibusiness.base.menu.entity.MenuRoleDef;
 import com.ibusiness.base.user.dao.UserBaseDao;
 import com.ibusiness.base.user.entity.UserBase;
+import com.ibusiness.common.model.ConfSelectItem;
 import com.ibusiness.common.page.PropertyFilter;
 import com.ibusiness.common.util.CommonUtils;
 import com.ibusiness.component.form.dao.ConfFormDao;
@@ -275,4 +278,27 @@ public class CommonBusiness {
     public TableDao getTableDao() {
         return ApplicationContextHelper.getBean(TableDao.class);
     }
+    // 获取配置的sql数据
+    public List<ConfSelectItem> getListConfSelectItemSQL(String tableName ,String tableNameTmp,String columnName) {
+        Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> caridMap= CommonBusiness.getInstance().getFormTableColumnMap(tableName, tableNameTmp);
+        JSONObject caridJsonObj = JSONObject.fromObject(caridMap.get(columnName).getConfSelectInfo());
+        String caridSql = caridJsonObj.getString("sql");
+        List<Map<String,Object>> caridList = com.ibusiness.core.spring.ApplicationContextHelper.getBean(com.ibusiness.common.service.CommonBaseService.class).getJdbcTemplate().queryForList(caridSql);
+        List<ConfSelectItem> caridItems = new java.util.ArrayList<ConfSelectItem>();
+        for (Map<String,Object> mapBean : caridList) {
+        	ConfSelectItem confSelectItem = new ConfSelectItem();
+        	confSelectItem.setKey(mapBean.get("vKey").toString());
+        	confSelectItem.setValue(mapBean.get("vValue").toString());
+        	caridItems.add(confSelectItem);
+       }
+        return caridItems;
+    }
+    
+    public List<ConfSelectItem> getListConfSelectItem(String tableName ,String tableNameTmp,String columnName) {
+    	Map<String, com.ibusiness.component.form.entity.ConfFormTableColumn> enterfactorytypeMap= CommonBusiness.getInstance().getFormTableColumnMap(tableName, tableNameTmp);
+        List<com.ibusiness.common.model.ConfSelectItem> enterfactorytypeItems = (List<com.ibusiness.common.model.ConfSelectItem>) CommonUtils.getListFromJson(enterfactorytypeMap.get(columnName).getConfSelectInfo(), com.ibusiness.common.model.ConfSelectItem.class);
+        return enterfactorytypeItems;
+    }
+    
+
 }

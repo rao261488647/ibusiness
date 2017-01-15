@@ -45,6 +45,47 @@
                     </c:if>
               </div>
           </c:forEach>
+<table class="table table-bordered" style="width:60%">
+   <tbody>
+      <tr>
+         <td>昨日提车司机数</td>
+         <td>今日提车司机数</td>
+         <td>本周提车司机数</td>
+         <td>本月提车司机数</td>
+      </tr>
+      <tr>
+         <td>${customerCount1.count1}</td>
+         <td>${customerCount1.count2}</td>
+         <td>${customerCount1.count3}</td>
+         <td>${customerCount1.count4}</td>
+      </tr>
+      <tr>
+         <td>昨日来店司机数</td>
+         <td>今日来店司机数</td>
+         <td>本周来店司机数</td>
+         <td>本月来店司机数</td>
+      </tr>
+      <tr>
+         <td>${customerCount1.count5}</td>
+         <td>${customerCount1.count6}</td>
+         <td>${customerCount1.count7}</td>
+         <td>${customerCount1.count8}</td>
+      </tr>
+      <tr>
+         <td>昨日签约司机数</td>
+         <td>今日签约司机数</td>
+         <td>本周签约司机数</td>
+         <td>本月签约司机数</td>
+      </tr>
+      <tr>
+         <td>${customerCount1.count9}</td>
+         <td>${customerCount1.count10}</td>
+         <td>${customerCount1.count11}</td>
+         <td>${customerCount1.count12}</td>
+      </tr>
+   </tbody>
+</table>
+
       </div>
       
       <div class="title"></div>

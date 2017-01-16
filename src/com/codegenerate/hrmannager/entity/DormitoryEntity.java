@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.SequenceGenerator;
 
-/**   
+/**    
  * @Title: Entity
  * @Description: 宿舍管理页面
  * @author JiangBo
@@ -43,6 +43,8 @@ public class DormitoryEntity implements java.io.Serializable {
 	private java.lang.String id;
 	/**范围*/
 	private java.lang.String scopeid;
+	/**自费金额*/
+	private java.lang.Double selfamount;
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -221,5 +223,21 @@ public class DormitoryEntity implements java.io.Serializable {
 	 */
 	public void setScopeid(java.lang.String scopeid){
 		this.scopeid = scopeid;
+	}
+	/**
+	 *方法: 取得java.lang.Double
+	 *@return: java.lang.Double  自费金额
+	 */
+	@Column(name ="SELFAMOUNT",nullable=true,precision=10,scale=2)
+	public java.lang.Double getSelfamount(){
+		return this.selfamount;
+	}
+
+	/**
+	 *方法: 设置java.lang.Double
+	 *@param: java.lang.Double  自费金额
+	 */
+	public void setSelfamount(java.lang.Double selfamount){
+		this.selfamount = selfamount;
 	}
 }

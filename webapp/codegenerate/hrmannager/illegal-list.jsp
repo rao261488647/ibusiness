@@ -98,7 +98,7 @@
 					        <td><input type="checkbox" class="selectedItem a-check" name="selectedItem" value="${item.id}"></td>
 						            <td>${item.carnum}</td>
 						            <td>${item.drivername}</td>
-						            <td>${item.eventdate}</td>
+						            <td><fmt:formatDate value="${item.eventdate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
 						            <td>${item.amount}</td>
 						            <td>${item.procestype}</td>
 						            <td>${item.amounttype}</td>

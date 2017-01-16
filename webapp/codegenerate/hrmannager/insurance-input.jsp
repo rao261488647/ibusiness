@@ -21,6 +21,8 @@
 		        errorClass: 'validate-error'
 		    });
 		})
+		
+		
     </script>
     <div class="col-lg-1 col-md-1 col-sm-1"></div>
     <!-- start of main -->

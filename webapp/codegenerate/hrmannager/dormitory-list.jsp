@@ -90,6 +90,7 @@
 					                <th class="sorting">房号</th>
 					                <th class="sorting">使用方式</th>
 					                <th class="sorting">搬离日期</th>
+					                <th class="sorting">自费金额</th>
 				        <th width="30">&nbsp;</th>
 				      </tr>
 				    </thead>
@@ -106,6 +107,7 @@
 						            <td>${item.roomno}</td>
 						            <td>${item.useflag}</td>
 						            <td><fmt:formatDate value="${item.departuredate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" /></td>
+						            <td>${item.selfamount}</td>
 					        <td>
 					          <a href="dormitory-input.do?id=${item.id}" class="a-update" data-target="#modalInput" data-toggle="modal" data-database="true"><span class="glyphicon glyphicon-pencil"></span></a>
 					        </td>

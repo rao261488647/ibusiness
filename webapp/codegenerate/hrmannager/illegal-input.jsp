@@ -37,9 +37,11 @@
 					<div class="col-lg-3 col-md-3 col-sm-3">
 						<input id="code-carnum" type="text" name="carnum"
 							value="${model.carnum}"
-							class="text form-control input-sm required" readonly> <a
-							href="#" class="btn btn-primary btn-sm"
-							onclick="$('#carnumSInputDiv').modal('show');">选择</a>
+							class="text form-control input-sm required" readonly>
+							<c:if test="${model.carnum == null || model.carnum == ''}">
+								<a href="#" class="btn btn-primary btn-sm"
+								onclick="$('#carnumSInputDiv').modal('show');">选择</a>
+                          </c:if>  
 						<script type="text/javascript">
 							function changecarnumValue(carnum, name) {
 								$("#code-carnum").val(carnum);
@@ -131,12 +133,14 @@
 					</div>
 
 					<label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-drivername">使用人:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">   <input id="code-drivername" type="text" name="drivername" value="${model.drivername}" class="text form-control input-sm "  ></div>
+                          <div class="col-lg-3 col-md-3 col-sm-3">   
+                          <input id="code-drivername" type="text" name="drivername" value="${model.drivername}" <c:if test="${model.drivername != null && model.drivername != ''}"> disabled</c:if>  class="text form-control input-sm "  ></div>
                           
                             </div>
                           <div class="form-group">
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-eventdate">违章时间:</label>
-                          <div class="col-lg-3 col-md-3 col-sm-3">  <div class="input-append datepicker date">  <span class="add-on">    <input id="code-eventdate" type="text" name="eventdate" value="${model.eventdate}" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
+                          <div class="col-lg-3 col-md-3 col-sm-3">  <div class="input-append datepicker date">  <span class="add-on">    
+                          <input id="code-eventdate" type="text" name="eventdate" value="<fmt:formatDate value="${model.eventdate}" pattern="yyyy-MM-dd" type="date" dateStyle="long" />" placeholder="点击选择" class="form-control input-sm required" readonly >  </span>  </div></div>
                           
                           <label class="col-lg-2 col-md-2 col-sm-2 control-label" for="code-amount">罚款金额:</label>
                           <div class="col-lg-3 col-md-3 col-sm-3">  <input id="code-amount" type="text" name="amount" value="${model.amount}" class="text  form-control input-sm number required" ></div>
